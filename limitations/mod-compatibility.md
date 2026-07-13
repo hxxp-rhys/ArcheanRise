@@ -8,9 +8,14 @@ Verified live 2026-07-04 (see `docs/COMPATIBILITY.md` for the full verdicts and 
   anything we do. Watchlist: if `create-fabric` ships a 1.21.1 release, re-run the compat suite.
 - **Create: Let The Adventure Begin crashes the server at boot** on Fabric 1.21.1 (its data
   references Create blocks without depending on Create). Not installable — an upstream defect.
-- **Overworld-replacer terrain mods (Terralith, Tectonic class)** are competing generators, not
-  compatible layers: they rewrite the same vanilla data surface our preset derives from. Policy:
-  detect + defer (documented conflict), never merge.
+- **Overworld-replacer terrain mods (Terralith, Tectonic class) — their TERRAIN never applies; their
+  BIOMES may.** These mods rewrite the same vanilla data surface our preset derives from, so their
+  *terrain shape* is a competing generator and is never merged: Archean Rise's preset wins, and their
+  noise settings are simply not used. Policy: detect + defer, never merge. **This is a statement about
+  TERRAIN only** — it does not mean the mod is unusable. Terralith's *biomes* DO appear in Archean Rise
+  terrain (live-verified, see the biome-mod verdicts below and docs/COMPATIBILITY.md); Tectonic's do
+  not contribute anything and it is simply inert. Do not read this bullet as "Terralith is
+  incompatible" — it previously read that way and contradicted the verdict two bullets down.
 - **Expanded Ecosphere (`expanded_ecosphere`) — HARD CONFLICT, now enforced:** it replaces the
   overworld of ANY selected world preset at world creation, including the Archean Rise world
   type explicitly set via `level-type` (live-proven 2026-07-05). No combination in which both

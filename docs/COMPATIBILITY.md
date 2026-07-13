@@ -1,118 +1,179 @@
-# Archean Rise — Structure-Mod Compatibility Verdicts
+# Mod Compatibility
 
-**Method (2026-07-04):** all 30 top non-Create structure mods (plus required libraries, 42 jars
-total, resolved from `references/data/*.json`) were installed together with Archean Rise
-0.1.0 on a **production Fabric 1.21.1 dedicated server** running the `archean_rise:archean_rise`
-world preset (Y −128..+512). The in-mod audit (`/archeanrise-audit structures`) then verified
-every one of the **1,073 registered structures** for biome eligibility against our generator,
-scanned absolute-Y anchors, and classified dimensions. Full table:
-[reports/fleet-audit-2026-07-04.md](reports/fleet-audit-2026-07-04.md). Result: 854 overworld-
-compatible, 200 other-dimension (Nether/End — our preset keeps those vanilla, so they generate
-normally), 19 ineligible — **every ineligible structure is ineligible by its own mod's design**
-(biome-mod-exclusive variants or shipped-disabled), none because of Archean Rise. Placement
-mechanics (locate probes) were separately validated on the vanilla baseline; per-mod placement
-facts are jar-verified in `references/structure-mods-compatibility.md`.
+Which mods work alongside Archean Rise, and which don't.
 
-Create-mod context: **Create itself does not run on Fabric MC 1.21.1** (Create Fabric tops out
-at MC 1.20.1; Create on 1.21.1 is NeoForge-only — volatile, verified 2026-07-04, watchlist in
-`references/create-structure-mods-compatibility.md`).
+> **Archean Rise is a world-generation mod.** It takes over how the Overworld is built. That means it
+> can only ever conflict with other mods that also touch world generation — terrain mods, biome mods
+> and structure mods. **Everything else is fine.** Performance mods, client/visual mods, QoL mods,
+> machinery mods, food mods and so on do not compete with Archean Rise and are not listed here.
 
-## ✅ Compatible — structure mods WITHOUT Create integration (30/30 tested live)
+---
 
-- YUNG's Better Nether Fortresses · YUNG's Better Ocean Monuments · YUNG's Better Dungeons ·
-  YUNG's Better Jungle Temples · YUNG's Better Mineshafts · YUNG's Better End Island ·
-  YUNG's Better Strongholds · YUNG's Better Witch Huts · YUNG's Better Desert Temples ·
-  YUNG's Bridges · YUNG's Extras (+ YUNG's API)
-- Dungeons and Taverns — *note: `mining_system` is shipped disabled by the mod itself*
-- Towns and Towers — *its standard villages/outposts all eligible; the 17 "exclusives" variants
-  activate only when partner biome mods are present (by design). Its `replace:true` village-tag
-  override is the known hazard for our FUTURE custom biomes (compat tag pack planned, §1b of
-  docs/EXPANSION-DESIGN.md)*
-- Repurposed Structures · When Dungeons Arise (*sky structures occupy y≈130–200 — the documented
-  contested band; also ships broken advancement JSONs on 1.21.1, mod-side, cosmetic*) ·
-  ChoiceTheorem's Overhauled Village · MES — Moog's End Structures · Explorify ·
-  Villages & Pillages (*one structure pinned at absolute y=68, fine at sea level 63*) ·
-  Structory · Structory: Towers (*wizard_tower needs magical biomes — inactive by design without
-  biome mods*) · Philip's Ruins · AdoraBuild: Structures · MVS — Moog's Voyager Structures ·
-  Better Archeology (*harmless datafixer warning at boot, mod-side*) · Formations Nether ·
-  Formations Overworld (+ Formations lib) · The Lost Castle · Explorations ·
-  Additional Structures · Luki's Grand Capitals
+## How to read this page
 
-## ✅ Compatible — structure mods WITH Create integration
+Each mod has a tick or a cross for the **three most recent Archean Rise versions**:
 
-- *(none — no Create-integrated structure mod can currently run on Fabric MC 1.21.1 at all,
-  because Create itself cannot; see below. This list is empty by ecosystem reality, not by an
-  Archean Rise limitation.)*
+| Symbol | Meaning |
+|:---:|---|
+| ✅ | **Works.** Tested on that version of Archean Rise, and the mod does what it is supposed to do. |
+| ❌ | **Does not work.** Tested on that version, and it failed — it crashed, or its content silently never appeared, or Archean Rise damaged it. The Notes say which. |
+| ⚠️ | **Works, but not recommended.** Nothing breaks, but there is a catch worth knowing about first. The Notes say what. |
+| — | **Not tested on that version.** No claim either way. Look at the **Last tested** column to see when it *was* last checked. |
 
-## ❌ Incompatible — structure mods WITHOUT Create integration
+**A ❌ does not always mean a crash.** The most common failure is quiet: the mod loads, nothing looks
+broken, but its biomes or structures simply never generate. That is still a ❌ here — if you install a
+biome mod and get none of its biomes, it does not work, however peacefully it fails.
 
-- *(none of the top 30 — all pass live testing)*
-- Environment-incompatible honorable mentions (no Fabric 1.21.1 build exists, could not be
-  tested): The Lost Cities · Bygone Nether · The Graveyard
+**Read the Last tested column.** A row of dashes with `✅ 0.1.0` next to it means "this passed a long
+time ago, on a much older version of Archean Rise, and nobody has re-checked it since." That is not a
+promise that it still works today. See [Why so many dashes](#why-so-many-dashes) below.
 
-## ❌ Incompatible — structure mods WITH Create integration (15/15, all environment-level)
+---
 
-All incompatible because **Create has no Fabric 1.21.1 build** — nothing Archean Rise can fix;
-re-evaluate if the `create-fabric` watchlist trigger fires:
+## How mods are tested
 
-- Create: Let The Adventure Begin — *the one "Fabric 1.21.1" release; **live-tested: causes a
-  fatal registry crash at server boot** (ships a `minecraft:create` flat-preset referencing
-  Create blocks with no Create dependency). Do not install.*
-- Create: Structures · Create: Structures Arise · IDAS (Integrated Dungeons and Structures) ·
-  CTOV – Create Structures addon · Create: Molten Vents · Create: Easy Structures ·
-  Integrated Stronghold · Create: Dynamic Village · Create: Rustic Structures ·
-  Create: New Beginnings · Create: Sky Village · Create: Hangars · Create: Pillagers Arise ·
-  Create: Structures Overhaul — *all NeoForge-1.21.1 and/or Fabric-≤1.20.1 only*
+A mod is installed together with Archean Rise on a clean dedicated server — on **both** Fabric and
+NeoForge where the mod supports both — and a world is generated from scratch. We then check five things:
 
-## Client modpack coexistence — MandR instance (49 mods, live evidence 2026-07-05)
+1. **Does the server start?** A crash, or a registry error caused by the pairing, is an immediate ❌.
+2. **Does Archean Rise still control the world?** The startup log must confirm the Archean Rise world
+   is active. If another mod has quietly replaced the Overworld, that is a ❌ *for that mod*.
+3. **Does the mod's content actually appear?** Its biomes and structures are searched for in a
+   generated world. A mod whose content never shows up is a ❌ — even though nothing crashed.
+4. **Does the mod damage the world, or does Archean Rise damage the mod?** Terrain around the mod's
+   structures is inspected for breakage (holes, floating terrain, structures buried or left hanging).
+5. **Are the logs clean?** Any error or warning caused by the pairing is investigated.
 
-Archean Rise ran inside a Fabulously-Optimized-style client instance with 49 mods (Sodium,
-Iris, Lithium, ModernFix, ImmediatelyFast, EntityCulling, Controlify, Zoomify, ModMenu,
-Cloth/YACL, Continuity, ETF/EMF, Dynamic FPS, e4mc, NoChatReports, Polytone, etc. — full list
-in the instance). Verdict: **compatible with all 49** —
-- two worlds created and played (tier 3 + tier 5); zero Archean Rise errors or warnings in the
-  client log; the only log errors belong to other mods (Controlify mixin remap notice,
-  SteamDeckUtil probe, a skin-layers class check) and predate/ignore us;
-- structural reasons: these are client-side rendering/QoL/performance mods; Archean Rise was a
-  data-driven worldgen mod with zero mixins at the time of this evidence (v0.1.x — v0.2.0 added
-  the six SiteGrading mixins, whose vanilla-world leak test is clean and whose targets are
-  structure placement, not anything these client mods touch). Lithium is the only
-  worldgen-adjacent mod and generated both worlds without incident;
-- OpenCL GPU backend passed its bit-parity self-test on the client alongside Sodium/Iris
-  (separate compute context; no GL interop). (Historical — the backend was removed in the
-  v0.3.x cleanup; generation is CPU-only.)
+The mod must pass **all five** to earn a ✅.
 
-## ✅ Server performance mods — C2ME + Lithium (live evidence 2026-07-05, AR 0.2.3)
+Testing is run by the project's own audit tooling (`/archeanrise-audit`), not by eye.
 
-**Verdict: TRULY COMPATIBLE (functional certification).** Dedicated server booted with
-`c2me-fabric 0.4.0-alpha.0.18+1.21.1` (all modules active, including `rewrites-chunk-system`
-and `threading-lighting`) + `lithium 0.15.4+mc1.21.1` + Fabric API, tier_5 preset, seed 424242:
+---
 
-- clean boot in 3.2s; zero error-level lines; the only warnings are C2ME's own optional
-  Starlight-integration probes (ClassNotFoundException — expected without Starlight);
-- `World terrain tier: 5 (relief 2.59x, landforms 5.18x, biomes 12.0x, Y -272 to 640)` — the
-  preset survives C2ME's chunk-system rewrite intact;
-- **SiteGrading fired on `c2me-worker-*` threads** — the @WrapOperation + GenerationStub
-  consumer decoration survives C2ME rescheduling structure placement onto its own pool (the
-  decoration travels with the stub, so thread identity is irrelevant by construction);
-- pregen ticket engine completed error-free at **96.3 chunks/s** (289 chunks) — C2ME's
-  parallel worldgen COMPOSES with our engine (~2× our CPU-only baseline);
-- structure audit: 34 structures — 29 compatible, 5 no-eligible-biome, 0 regressions (matches
-  the vanilla-only baseline pattern).
+## Terrain and biome mods
 
-**Methodology caveat:** certification is functional, not bit-compare. The 2026-07-05
-order-sensitivity finding (docs/DECISIONS.md — cross-chunk feature spill is order- AND
-state-dependent; even two mod-free runs diverge beyond the demand-generation frontier)
-invalidates whole-world hash comparison as a coexistence gate for any mod that reorders chunk
-scheduling, which is C2ME's entire purpose. Terrain-shape (pre-feature) parity is EXPECTED
-(C2ME schedules the same density functions) but NOT bit-verified here: `c2me-opts-math` /
-`c2me-opts-natives-math` replace some math implementations and could in principle alter
-floating-point results [WEAK EVIDENCE — unmeasured]. Re-review trigger: player reports of
-chunk borders/seams on C2ME servers → re-test with those two modules disabled via C2ME config.
+These are the mods most likely to conflict, because they want to do the same job as Archean Rise.
 
-## Re-running this verdict
+| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+|---|:---:|:---:|:---:|---|---|
+| **Expanded Ecosphere** | ❌ | ❌ | ❌ | ❌ 0.1.5 | **The game will not start.** It replaces the Overworld of *any* world type, including Archean Rise's, so the two can never both work. Archean Rise refuses to launch beside it on purpose, with an explanation, rather than let it silently take over your world. |
+| **Biomes O' Plenty** | — | — | — | ❌ 0.2.x | No crash — but **none of its biomes ever appear** in an Archean Rise world. |
+| **Oh The Biomes We've Gone** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
+| **Nature's Spirit** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
+| **YUNG's Cave Biomes** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
+| **Underground Worlds** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
+| **Terralith** | — | — | — | ✅ 0.2.x | Its **biomes** appear and work. Its **terrain shape** does not — Archean Rise generates the land, Terralith paints biomes onto it. Install it for the biomes, not for the terrain. |
+| **Regions Unexplored** | — | — | — | ✅ 0.2.x | Biomes appear in Archean Rise terrain. |
+| **Geophilic** | — | — | — | ✅ 0.2.x | Biomes appear in Archean Rise terrain. |
+| **Tectonic** | — | — | — | ✅ 0.2.x | Safe to install, but **it has no effect** — Archean Rise generates the terrain instead. |
+| **BetterEnd / BetterNether / Incendium / Nullscape** | — | — | — | ✅ 0.2.x | Fine. Archean Rise only changes the Overworld; the Nether and the End are left completely alone. |
+| **terrain-diffusion-mc** | — | — | — | ⚠️ 0.2.x | **Not recommended.** It doesn't break your world, but it misbehaves on non-native world types and downloads ~2.5 GB of models on first launch. |
 
-Boot the audit server with the mod set, run `/archeanrise-audit structures fast` (whole-registry
-eligibility, seconds) or `... deep <radius>` (adds locate probes; set `max-tick-time=-1`).
-Compare against the archived report. Any regression in a previously-compatible structure is an
-Archean Rise bug until proven otherwise.
+> **Why the biome mods above fail:** Biomes O' Plenty and its relatives add their biomes through a
+> library called TerraBlender, which places biomes using vanilla's terrain rules. Archean Rise doesn't
+> use vanilla's terrain rules, so TerraBlender's biomes never get a chance to be placed. Nothing is
+> broken; the biomes simply never come up. A bridge for this is planned.
+
+---
+
+## Structure mods
+
+| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+|---|:---:|:---:|:---:|---|---|
+| **Create: Let The Adventure Begin** | ❌ | ✅ | ✅ | ✅ 0.3.15 | **NeoForge only, and Create must be installed.** On 0.3.13 Archean Rise carved the ground out from under its buried cave ruins and left floating chunks of terrain overhead — fixed in 0.3.14. On Fabric it crashes the server at boot, because it references Create blocks but Create has no Fabric 1.21.1 build; that is an upstream defect, not an Archean Rise one. |
+| **YUNG's Better Dungeons** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Mineshafts** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Strongholds** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Desert Temples** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Witch Huts** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Jungle Temples** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Ocean Monuments** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Better Nether Fortresses** | — | — | — | ✅ 0.1.0 | Nether — untouched by Archean Rise. |
+| **YUNG's Better End Island** | — | — | — | ✅ 0.1.0 | End — untouched by Archean Rise. |
+| **YUNG's Bridges** | — | — | — | ✅ 0.1.0 | |
+| **YUNG's Extras** | — | — | — | ✅ 0.1.0 | |
+| **Towns and Towers** | — | — | — | ✅ 0.1.0 | Its village variants that need partner biome mods stay dormant without them — by its own design. |
+| **Dungeons and Taverns** | — | — | — | ✅ 0.1.0 | Its `mining_system` is shipped switched off by the mod itself. |
+| **When Dungeons Arise** | — | — | — | ✅ 0.1.0 | Its sky structures sit high up, in a band Archean Rise also uses — worth watching. |
+| **Repurposed Structures** | — | — | — | ✅ 0.1.0 | |
+| **ChoiceTheorem's Overhauled Village** | — | — | — | ✅ 0.1.0 | |
+| **Explorify** | — | — | — | ✅ 0.1.0 | |
+| **Villages & Pillages** | — | — | — | ✅ 0.1.0 | |
+| **Structory** | — | — | — | ✅ 0.1.0 | |
+| **Structory: Towers** | — | — | — | ✅ 0.1.0 | Its wizard tower needs magical biomes from another mod — dormant without them, by design. |
+| **Philip's Ruins** | — | — | — | ✅ 0.1.0 | |
+| **AdoraBuild: Structures** | — | — | — | ✅ 0.1.0 | |
+| **Moog's Voyager Structures** | — | — | — | ✅ 0.1.0 | |
+| **Moog's End Structures** | — | — | — | ✅ 0.1.0 | End — untouched by Archean Rise. |
+| **Better Archeology** | — | — | — | ✅ 0.1.0 | Prints a harmless warning at boot (its own, not ours). |
+| **Formations Overworld / Formations Nether** | — | — | — | ✅ 0.1.0 | |
+| **The Lost Castle** | — | — | — | ✅ 0.1.0 | |
+| **Explorations** | — | — | — | ✅ 0.1.0 | |
+| **Additional Structures** | — | — | — | ✅ 0.1.0 | |
+| **Luki's Grand Capitals** | — | — | — | ✅ 0.1.0 | |
+
+### Create-based structure mods
+
+Create itself has **no Fabric build for Minecraft 1.21.1** (Fabric support stops at 1.20.1; on 1.21.1
+Create is NeoForge-only). So on **Fabric**, every Create-based structure mod is unusable — with or
+without Archean Rise. This is an ecosystem fact, not an Archean Rise limitation.
+
+On **NeoForge**, where Create does exist, these mods can run. Only *Create: Let The Adventure Begin*
+(in the table above) has actually been tested with Archean Rise so far.
+
+Every mod below is therefore **untested — treat it as unknown**, not as safe:
+
+Create: Structures · Create: Structures Arise · Create: Easy Structures · Create: Rustic Structures ·
+Create: Pillagers Arise · Create: Molten Vents · Create: Dynamic Village · Create: New Beginnings ·
+Create: Sky Village · Create: Hangars · Create: Structures Overhaul · IDAS (Integrated Dungeons and
+Structures) · CTOV Create addon · Integrated Stronghold
+
+Given what was found in *Create: Let The Adventure Begin* — Archean Rise was damaging the terrain
+around its buried structures — the rest of this family is a priority for testing, not a safe bet.
+
+---
+
+## Performance and server mods
+
+| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+|---|:---:|:---:|:---:|---|---|
+| **C2ME** | — | — | — | ✅ 0.2.3 | Recommended. Roughly doubled world-generation speed in testing. |
+| **Lithium** | — | — | — | ✅ 0.2.3 | Recommended. |
+
+Client-side mods — Sodium, Iris, ModernFix, ImmediatelyFast, EntityCulling, shaders, minimaps, UI mods
+and so on — **do not interact with world generation at all**. Archean Rise has been run inside a
+49-mod Fabulously-Optimized-style client pack with no issues. They are not tracked individually here.
+
+---
+
+## Why so many dashes
+
+Most of the ticks on this page were earned on **Archean Rise 0.1.0 and 0.2.x**, and the world has
+changed a great deal since then. Version 0.3.0 rebuilt the terrain from scratch, and later versions
+changed how Archean Rise handles *other mods'* structures — it now re-spaces them, reshapes the ground
+around them, and in some cases declines to place them at all.
+
+That means the old ticks can no longer be taken for granted, and we are not going to pretend otherwise
+by copying them forward into columns they were never tested in.
+
+The floating-island bug in **Create: Let The Adventure Begin** is the proof: it was ticked as
+compatible, and it was silently being broken. It took a fresh test on 0.3.13 to find it.
+
+**So: a dash means "we genuinely do not know yet."** Re-testing the list against the current version is
+in progress. If a mod matters to you and it shows dashes, test it yourself on a throwaway world first.
+
+---
+
+## Something not on this list?
+
+If a mod isn't listed here, it has not been tested. That is not a verdict — just an absence of one.
+
+If you hit a problem with a specific mod, please report it, and include the mod, its version, your
+Archean Rise version, and your loader. That is what turns a dash into a tick or a cross.
+
+---
+
+<sub>**Maintenance:** this page is the project's compatibility record. Whenever compatibility testing is
+performed — a pass, a failure, or an inconclusive run — the result **must** be recorded here in the same
+commit, and the version columns roll forward on every release. Nothing gets tested and quietly forgotten.
+See the `archean-compat-matrix` skill.</sub>
