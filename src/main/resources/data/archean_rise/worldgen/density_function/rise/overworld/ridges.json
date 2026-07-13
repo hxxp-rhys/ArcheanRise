@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:shifted_noise",
+    "noise": "minecraft:ridge",
+    "shift_x": "archean_rise:rise/shift_x",
+    "shift_y": 0,
+    "shift_z": "archean_rise:rise/shift_z",
+    "xz_scale": 0.03765060240963856,
+    "y_scale": 0
+  }
+}

@@ -1,0 +1,41 @@
+{
+	"schemaVersion": 1,
+	"id": "archean_rise",
+	"version": "${version}",
+	"name": "Archean Rise",
+	"description": "Server-first terrain generation overhaul: extended world range (-256 to +768, mountains to 708), multi-scale cave systems, natural biome transitions, and compatibility with popular structure and biome mods.",
+	"authors": [
+		"Archean Rise Team"
+	],
+	"contact": {},
+	"license": "All-Rights-Reserved",
+	"environment": "*",
+	"mixins": [
+		"archean_rise.mixins.json"
+	],
+	"entrypoints": {
+		"main": [
+			"dev.archeanrise.ArcheanRiseFabric"
+		],
+		"client": [
+			"dev.archeanrise.client.ArcheanRiseClient"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~1.21.1",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"recommends": {
+		"c2me": "*",
+		"lithium": "*"
+	},
+	"suggests": {
+		"noisium": "*",
+		"starlight": "*"
+	},
+	"breaks": {
+		"expanded_ecosphere": "*"
+	}
+}

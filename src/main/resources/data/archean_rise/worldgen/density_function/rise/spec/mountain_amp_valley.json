@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "archean_rise:river_carve",
+      "mode": "valley",
+      "argument": "archean_rise:rise/spec/mountain_amp"
+    }
+  }
+}

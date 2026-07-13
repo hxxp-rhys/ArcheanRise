@@ -1,0 +1,45 @@
+modLoader = "javafml"
+loaderVersion = "[4,)"
+license = "All-Rights-Reserved"
+
+[[mods]]
+modId = "archean_rise"
+version = "${version}"
+displayName = "Archean Rise"
+authors = "Archean Rise Team"
+description = '''
+Server-first terrain generation overhaul: extended world range (-256 to +768, mountains to 708), multi-scale cave systems, natural biome transitions, and compatibility with popular structure and biome mods.'''
+
+# Mixin config — same JSON as the Fabric build (shared from ../src/main/resources).
+[[mixins]]
+config = "archean_rise.mixins.json"
+
+[[dependencies.archean_rise]]
+modId = "neoforge"
+type = "required"
+versionRange = "[21.1.0,)"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.archean_rise]]
+modId = "minecraft"
+type = "required"
+versionRange = "[1.21.1]"
+ordering = "NONE"
+side = "BOTH"
+
+# Recommended performance mods — OPTIONAL (Archean Rise composes with them, never bundles; licenses
+# forbid absorption — see docs/DECISIONS.md 2026-07-07). Absent = no effect; present = AR loads after.
+[[dependencies.archean_rise]]
+modId = "c2me"
+type = "optional"
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.archean_rise]]
+modId = "lithium"
+type = "optional"
+versionRange = "[0,)"
+ordering = "AFTER"
+side = "BOTH"

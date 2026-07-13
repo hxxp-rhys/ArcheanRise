@@ -1,0 +1,70 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "archean_rise:river_carve",
+      "argument": {
+        "type": "archean_rise:river_carve",
+        "mode": "sink",
+        "argument": {
+          "type": "minecraft:add",
+          "argument1": -0.50375,
+          "argument2": {
+            "type": "minecraft:clamp",
+            "input": {
+              "type": "minecraft:spline",
+              "spline": {
+                "coordinate": "archean_rise:rise/spec/offset_preknee",
+                "points": [
+                  {
+                    "location": -0.5035165662650603,
+                    "value": -0.5035165662650603,
+                    "derivative": 1
+                  },
+                  {
+                    "location": 1.3537123493975907,
+                    "value": 1.3537123493975907,
+                    "derivative": 1
+                  },
+                  {
+                    "location": 1.4337198795180726,
+                    "value": 1.427658054154934,
+                    "derivative": 0.7864477329659274
+                  },
+                  {
+                    "location": 1.5137274096385545,
+                    "value": 1.4755788841420183,
+                    "derivative": 0.41997434161402614
+                  },
+                  {
+                    "location": 1.6097364457831327,
+                    "value": 1.5011931986531442,
+                    "derivative": 0.1505270758182854
+                  },
+                  {
+                    "location": 1.7377484939759038,
+                    "value": 1.5111151410089665,
+                    "derivative": 0.032383774341317895
+                  },
+                  {
+                    "location": 1.8977635542168674,
+                    "value": 1.5133713645979177,
+                    "derivative": 0.004445193185743657
+                  },
+                  {
+                    "location": 2.0897816265060243,
+                    "value": 1.5136950772534559,
+                    "derivative": 0.0004040759480389289
+                  }
+                ]
+              }
+            },
+            "min": -0.4535165662650602,
+            "max": 1.5137274096385545
+          }
+        }
+      }
+    }
+  }
+}

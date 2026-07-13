@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:mul",
+      "argument1": 525,
+      "argument2": {
+        "type": "minecraft:shifted_noise",
+        "noise": "archean_rise:warp",
+        "shift_x": 3781,
+        "shift_y": 0,
+        "shift_z": -3781,
+        "xz_scale": 0.005333333333333333,
+        "y_scale": 0
+      }
+    }
+  }
+}

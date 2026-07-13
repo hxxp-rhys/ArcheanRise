@@ -1,0 +1,26 @@
+{
+  "required": true,
+  "package": "dev.archeanrise.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "minVersion": "0.8",
+  "mixins": [
+    "ChunkGeneratorDecorationMixin",
+    "ChunkGeneratorMixin",
+    "ChunkGeneratorStructureStateAccessor",
+    "JigsawStructureAccessor",
+    "JigsawStructureMixin",
+    "JigsawPlacementMixin",
+    "JigsawPlacementPlacerMixin",
+    "NoiseBasedChunkGeneratorMixin",
+    "StructurePlacementAccessor",
+    "StructureSnowGateMixin",
+    "StructureWaterGateMixin",
+    "StructureStartMixin",
+    "PlacedFeatureMixin",
+    "WorldCarverMixin"
+  ],
+  "client": [],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

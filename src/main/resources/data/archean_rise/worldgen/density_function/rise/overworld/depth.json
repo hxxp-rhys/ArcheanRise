@@ -1,0 +1,11 @@
+{
+  "type": "minecraft:add",
+  "argument1": {
+    "type": "minecraft:y_clamped_gradient",
+    "from_value": 1.5,
+    "from_y": -359,
+    "to_value": -1.5,
+    "to_y": 916
+  },
+  "argument2": "archean_rise:rise/overworld/offset"
+}

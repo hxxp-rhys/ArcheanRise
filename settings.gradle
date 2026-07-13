@@ -1,0 +1,21 @@
+pluginManagement {
+	repositories {
+		maven {
+			name = 'Fabric'
+			url = 'https://maven.fabricmc.net/'
+		}
+		mavenCentral()
+		gradlePluginPortal()
+	}
+}
+
+// Auto-provision a JDK 21 for ModDevGradle's NeoForm recompile (the host has only JDK 25 + a JRE 21).
+plugins {
+	id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'archean-rise'
+
+// NeoForge port: a standalone ModDevGradle subproject that srcDir's the shared Fabric source
+// (see .claude/skills/neoforge-1.21.1-port). The root project stays the untouched Loom/Fabric build.
+include(':neoforge')

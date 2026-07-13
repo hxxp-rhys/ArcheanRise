@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:mul",
+      "argument1": {
+        "type": "minecraft:clamp",
+        "input": {
+          "type": "minecraft:mul",
+          "argument1": 10,
+          "argument2": {
+            "type": "minecraft:add",
+            "argument1": "archean_rise:rise/overworld/continents",
+            "argument2": 0.14
+          }
+        },
+        "min": 0,
+        "max": 1
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": "archean_rise:rise/spec/province",
+        "argument2": {
+          "type": "minecraft:clamp",
+          "input": {
+            "type": "minecraft:add",
+            "argument1": 1,
+            "argument2": {
+              "type": "minecraft:mul",
+              "argument1": -0.25,
+              "argument2": "archean_rise:rise/overworld/erosion"
+            }
+          },
+          "min": 0.7,
+          "max": 1.15
+        }
+      }
+    }
+  }
+}

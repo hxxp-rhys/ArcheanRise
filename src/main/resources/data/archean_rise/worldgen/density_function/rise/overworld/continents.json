@@ -1,0 +1,54 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": "archean_rise:rise/overworld/continents_base",
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": 0.25,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:shifted_noise",
+            "noise": "archean_rise:cren",
+            "shift_x": 137,
+            "shift_y": 0,
+            "shift_z": -137,
+            "xz_scale": 0.005333333333333333,
+            "y_scale": 0
+          },
+          "argument2": {
+            "type": "minecraft:spline",
+            "spline": {
+              "coordinate": "archean_rise:rise/overworld/continents_base",
+              "points": [
+                {
+                  "location": -0.44,
+                  "value": 0,
+                  "derivative": 0
+                },
+                {
+                  "location": -0.24000000000000002,
+                  "value": 1,
+                  "derivative": 0
+                },
+                {
+                  "location": -0.04000000000000001,
+                  "value": 1,
+                  "derivative": 0
+                },
+                {
+                  "location": 0.15999999999999998,
+                  "value": 0,
+                  "derivative": 0
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

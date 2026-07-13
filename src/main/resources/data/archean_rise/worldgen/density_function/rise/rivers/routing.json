@@ -1,0 +1,95 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:spline",
+        "spline": {
+          "coordinate": "archean_rise:rise/overworld/continents",
+          "points": [
+            {
+              "location": -1.05,
+              "value": -128,
+              "derivative": 0
+            },
+            {
+              "location": -0.6,
+              "value": -85,
+              "derivative": 0
+            },
+            {
+              "location": -0.35,
+              "value": -25,
+              "derivative": 0
+            },
+            {
+              "location": -0.19,
+              "value": 40,
+              "derivative": 0
+            },
+            {
+              "location": -0.16,
+              "value": 56,
+              "derivative": 0
+            },
+            {
+              "location": -0.14,
+              "value": 63,
+              "derivative": 0
+            },
+            {
+              "location": -0.1,
+              "value": 66,
+              "derivative": 0
+            },
+            {
+              "location": 0.1,
+              "value": 100,
+              "derivative": 0
+            },
+            {
+              "location": 0.45,
+              "value": 170,
+              "derivative": 0
+            },
+            {
+              "location": 1,
+              "value": 220,
+              "derivative": 0
+            }
+          ]
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": 280,
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "minecraft:mul",
+            "argument1": "archean_rise:rise/spec/mountain_amp",
+            "argument2": {
+              "type": "minecraft:min",
+              "argument1": "archean_rise:rise/spec/mountain_amp",
+              "argument2": 1
+            }
+          },
+          "argument2": {
+            "type": "archean_rise:ridged_multifractal",
+            "noise": "archean_rise:ridged_macro",
+            "octaves": 2,
+            "lacunarity": 2,
+            "gain": 0.5,
+            "weight_gain": 2.8,
+            "offset": 1,
+            "xz_scale": 0.013333333333333334,
+            "shift_x": "archean_rise:rise/warp/dx",
+            "shift_z": "archean_rise:rise/warp/dz"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,95 @@
+// NeoForge port of Archean Rise (see .claude/skills/neoforge-1.21.1-port). Standalone MDG subproject
+// that srcDir's the shared Fabric source; the root project stays the untouched Loom/Fabric build.
+plugins {
+	id 'net.neoforged.moddev' version '2.0.141'
+	id 'java'
+	id 'maven-publish'
+}
+
+version = project.mod_version
+group = 'dev.archeanrise'
+
+base {
+	archivesName = 'archean-rise-neoforge'
+}
+
+// Host has JDK 25 + only a JRE 21 (no javac), so use the host JDK 25 toolchain and target 21
+// bytecode via --release 21 (exactly how the Fabric/Loom build already builds on this machine). The
+// deployed jar runs on the Prism instance's JRE 21, unaffected by the build-time JDK.
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(25)
+	}
+}
+
+tasks.withType(JavaCompile).configureEach {
+	options.release = 21
+}
+
+neoForge {
+	version = '21.1.235'
+
+	runs {
+		server {
+			server()
+			// N1 perf-test hook: -PserverJvm=-XX:+UseZGC,-Xmx8g injects server JVM args
+			// (COMMA-separated to avoid shell-quoting issues; empty by default → CI/normal runs unaffected).
+			if (project.hasProperty('serverJvm') && project.serverJvm?.trim()) {
+				jvmArguments.addAll(project.serverJvm.trim().tokenize(','))
+			}
+		}
+		client {
+			client()
+		}
+	}
+
+	mods {
+		"archean_rise" {
+			sourceSet sourceSets.main
+		}
+	}
+}
+
+sourceSets {
+	main {
+		java {
+			// Shared, loader-neutral core (compiled here against NeoForge's Mojang-mapped MC).
+			srcDir '../src/main/java'
+			// Fabric-only glue — the NeoForge build supplies its own entrypoint + platform impl.
+			exclude 'dev/archeanrise/ArcheanRiseFabric.java'
+			exclude 'dev/archeanrise/platform/FabricPlatform.java'
+		}
+		resources {
+			// Shared data/assets + the mixin config. NeoForge declares mixins in neoforge.mods.toml.
+			srcDir '../src/main/resources'
+			exclude 'fabric.mod.json'
+		}
+	}
+}
+
+processResources {
+	def props = [version: version]
+	inputs.properties(props)
+	filesMatching('META-INF/neoforge.mods.toml') {
+		expand(props)
+	}
+}
+
+// Ship the licence inside the NeoForge jar too. The LICENSE lives at the REPO ROOT (this is a
+// subproject, so a bare from("LICENSE") would resolve to neoforge/LICENSE and silently embed nothing) —
+// mirrors the root Loom build's jar block so BOTH loader jars carry identical licence text.
+jar {
+	from(rootProject.file('LICENSE')) {
+		rename { "${it}_archean-rise" }
+	}
+}
+
+// Dual-loader HARD RULE: one `gradlew build` emits BOTH loader jars into the shared /.build release
+// dir (the Fabric build already redirects remapJar there; MDG's `jar` stays in build/libs for runs/
+// publish, so we COPY it across). After this, /.build holds archean-rise-fabric-<v>.jar AND
+// archean-rise-neoforge-<v>.jar side by side. CI verifies/uploads both from /.build.
+tasks.register('copyJarToSharedBuild', Copy) {
+	from tasks.named('jar')
+	into rootProject.file('.build')
+}
+tasks.named('assemble') { dependsOn 'copyJarToSharedBuild' }

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:add",
+      "argument1": {
+        "type": "minecraft:add",
+        "argument1": "archean_rise:rise/spec/y_base",
+        "argument2": {
+          "type": "minecraft:mul",
+          "argument1": "archean_rise:rise/spec/land_factor",
+          "argument2": "archean_rise:rise/spec/relief"
+        }
+      },
+      "argument2": {
+        "type": "minecraft:mul",
+        "argument1": 0.014118975903614458,
+        "argument2": "archean_rise:rise/spec/detail"
+      }
+    }
+  }
+}

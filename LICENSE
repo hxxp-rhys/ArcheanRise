@@ -1,0 +1,105 @@
+Archean Rise
+Copyright (c) 2026 Archean Rise Team. All rights reserved.
+
+================================================================================
+ALL RIGHTS RESERVED
+================================================================================
+
+This software ("Archean Rise", the "Mod") and its accompanying source code,
+assets, data files and documentation are the copyrighted work of the Archean
+Rise Team (the "Author"). All rights not expressly granted below are reserved.
+
+--------------------------------------------------------------------------------
+1. PERMITTED USE
+--------------------------------------------------------------------------------
+
+You are granted a personal, non-exclusive, non-transferable, revocable licence
+to:
+
+  a) download the official, unmodified releases of the Mod published by the
+     Author;
+
+  b) install and use the Mod, for personal or commercial gameplay, on
+     single-player worlds and on Minecraft servers that you own or operate;
+
+  c) create and publish gameplay content (videos, screenshots, streams,
+     let's-plays, reviews) that features the Mod.
+
+--------------------------------------------------------------------------------
+2. RESTRICTIONS
+--------------------------------------------------------------------------------
+
+Except as expressly permitted in Section 1, or with the Author's prior written
+permission, you may NOT:
+
+  a) redistribute, re-upload, mirror, sell, sublicense or otherwise make the
+     Mod (or any part of it) available to third parties, in any form, including
+     inside a modpack;
+
+  b) modify, adapt, translate, or create derivative works of the Mod, or
+     distribute any such work;
+
+  c) decompile or reverse engineer the Mod, except to the limited extent that
+     such an act cannot lawfully be prohibited under applicable law (for
+     example, where it is permitted for interoperability purposes);
+
+  d) remove, obscure or alter this licence, any copyright notice, or any
+     attribution contained in the Mod.
+
+MODPACKS: inclusion of the Mod in any modpack, public or private, distributed
+to anyone other than yourself requires the Author's prior written permission.
+Requests may be made through the Mod's official project page.
+
+--------------------------------------------------------------------------------
+3. DISTRIBUTION PLATFORMS
+--------------------------------------------------------------------------------
+
+The Author grants the platforms on which the Author personally publishes the
+Mod (including Modrinth) the right to host, store, index and distribute the
+official release files to end users, in accordance with those platforms' terms
+of service. This permission does not extend to any other party.
+
+--------------------------------------------------------------------------------
+4. THIRD-PARTY AND DERIVED MATERIAL
+--------------------------------------------------------------------------------
+
+The copyright claimed above applies to the Author's own original work only.
+
+Portions of the worldgen data distributed with the Mod (under
+src/main/resources/data/archean_rise/worldgen/, and the corresponding entries in
+the release JAR files) are DERIVED FROM the vanilla Minecraft worldgen data,
+which is (c) Mojang Studios. Those portions remain the property of their
+respective owner, are used here as data consumed by the game itself, and no
+ownership of them is claimed by the Author.
+
+Minecraft is a trademark of Mojang Studios. Archean Rise is an unofficial
+third-party modification. It is NOT an official Minecraft product, and it is NOT
+approved by, affiliated with, endorsed by, or associated with Mojang Studios or
+Microsoft.
+
+The Mod is built against, and interoperates with, third-party platforms
+(Minecraft, the Fabric and NeoForge mod loaders and their APIs). Those remain
+subject to their own respective licences. No third-party code or assets are
+bundled inside the Mod's release JAR files.
+
+--------------------------------------------------------------------------------
+5. NO WARRANTY
+--------------------------------------------------------------------------------
+
+THE MOD IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHOR BE LIABLE
+FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE MOD OR THE USE
+OR OTHER DEALINGS IN THE MOD.
+
+THE MOD ALTERS MINECRAFT WORLD GENERATION. IT IS YOUR RESPONSIBILITY TO BACK UP
+ANY WORLD OR SAVE DATA BEFORE INSTALLING, UPDATING OR REMOVING IT.
+
+--------------------------------------------------------------------------------
+6. PERMISSIONS AND CONTACT
+--------------------------------------------------------------------------------
+
+For any use not permitted by this licence -- including redistribution, modpack
+inclusion, forks, or derivative works -- contact the Author through the Mod's
+official project page to request written permission.

@@ -1,0 +1,55 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": {
+          "type": "archean_rise:ridged_multifractal",
+          "noise": "archean_rise:ridged_macro",
+          "octaves": 5,
+          "lacunarity": 2,
+          "gain": 0.5,
+          "weight_gain": 2.8,
+          "offset": 1,
+          "xz_scale": 0.013333333333333334,
+          "shift_x": "archean_rise:rise/warp/dx",
+          "shift_z": "archean_rise:rise/warp/dz"
+        },
+        "points": [
+          {
+            "location": 0.68,
+            "value": 0,
+            "derivative": 0
+          },
+          {
+            "location": 0.75,
+            "value": 0.06,
+            "derivative": 1.2
+          },
+          {
+            "location": 0.82,
+            "value": 0.3,
+            "derivative": 5
+          },
+          {
+            "location": 0.87,
+            "value": 0.55,
+            "derivative": 4.5
+          },
+          {
+            "location": 0.9,
+            "value": 0.85,
+            "derivative": 2
+          },
+          {
+            "location": 0.925,
+            "value": 1,
+            "derivative": 0
+          }
+        ]
+      }
+    }
+  }
+}

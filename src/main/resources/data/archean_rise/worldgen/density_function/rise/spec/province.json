@@ -1,0 +1,65 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": {
+          "type": "minecraft:mul",
+          "argument1": {
+            "type": "archean_rise:voronoi",
+            "cell_size": 2400,
+            "salt": 500,
+            "output": "cell_id"
+          },
+          "argument2": {
+            "type": "minecraft:spline",
+            "spline": {
+              "coordinate": "archean_rise:rise/spec/province_edge",
+              "points": [
+                {
+                  "location": 0,
+                  "value": 0,
+                  "derivative": 0
+                },
+                {
+                  "location": 0.35,
+                  "value": 1,
+                  "derivative": 0
+                }
+              ]
+            }
+          }
+        },
+        "points": [
+          {
+            "location": -1,
+            "value": 0.05,
+            "derivative": 0
+          },
+          {
+            "location": -0.08,
+            "value": 0.15,
+            "derivative": 0
+          },
+          {
+            "location": 0.08,
+            "value": 0.55,
+            "derivative": 0
+          },
+          {
+            "location": 0.27999999999999997,
+            "value": 1,
+            "derivative": 0
+          },
+          {
+            "location": 1,
+            "value": 1.45,
+            "derivative": 0
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,63 @@
+# Archean Rise — public repository.
+# This repo contains ONLY what is needed to build, run and understand the mod.
+# Internal R&D, planning, forensics and dev tooling live in the private working repo and must
+# never be committed here.
+
+# ---- build output ----
+.gradle/
+build/
+/.build/
+out/
+classes/
+bin/
+.mixin.out/
+node_modules/
+
+# ---- dev run dirs (test servers, worlds, logs) ----
+run/
+neoforge/run/
+run-*.log
+hs_err_*.log
+replay_*.log
+*.hprof
+*.jfr
+
+# ---- editors ----
+.idea/
+.vscode/
+.settings/
+.classpath
+.project
+*.iml
+*.ipr
+*.iws
+*.launch
+*.DS_Store
+
+# ---- NEVER PUBLISH: internal engineering record & R&D ----
+# (kept in the private working repo)
+docs/research/
+docs/reports/
+docs/tasks/
+docs/DECISIONS.md
+docs/ARCHITECTURE.md
+docs/BACKLOG.md
+docs/NEXT-ACTIONS.md
+docs/TESTING.md
+docs/EXPANSION-DESIGN.md
+docs/HANDOFF-SITEGRADING-V2.md
+docs/terrain-scaling-spec.md
+references/
+
+# ---- NEVER PUBLISH: dev-only tooling & modpack staging ----
+tools/measure/
+# NOTE: 'tools/preview/*' (contents), NOT 'tools/preview/' (the directory). Git cannot re-include a
+# file whose PARENT DIRECTORY is excluded, so excluding the directory would silently swallow the
+# '!' negation below and drop rivers-r1.mjs — which generate-worldgen.mjs imports.
+tools/preview/*
+!tools/preview/rivers-r1.mjs
+tools/build-mrpack.mjs
+tools/stageb-corridor.mjs
+mrpack/
+package.json
+package-lock.json

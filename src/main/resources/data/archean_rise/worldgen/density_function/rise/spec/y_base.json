@@ -1,0 +1,64 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "minecraft:spline",
+      "spline": {
+        "coordinate": "archean_rise:rise/overworld/continents",
+        "points": [
+          {
+            "location": -1.05,
+            "value": -0.4535165662650602,
+            "derivative": 0
+          },
+          {
+            "location": -0.6,
+            "value": -0.3523305722891566,
+            "derivative": 0
+          },
+          {
+            "location": -0.35,
+            "value": -0.21114081325301204,
+            "derivative": 0
+          },
+          {
+            "location": -0.19,
+            "value": -0.05818524096385539,
+            "derivative": 0
+          },
+          {
+            "location": -0.16,
+            "value": -0.020534638554216837,
+            "derivative": 0
+          },
+          {
+            "location": -0.14,
+            "value": -0.004062499999999969,
+            "derivative": 0
+          },
+          {
+            "location": -0.1,
+            "value": 0.00299698795180726,
+            "derivative": 0
+          },
+          {
+            "location": 0.1,
+            "value": 0.08300451807228919,
+            "derivative": 0
+          },
+          {
+            "location": 0.45,
+            "value": 0.2477259036144579,
+            "derivative": 0
+          },
+          {
+            "location": 1,
+            "value": 0.3653840361445784,
+            "derivative": 0
+          }
+        ]
+      }
+    }
+  }
+}

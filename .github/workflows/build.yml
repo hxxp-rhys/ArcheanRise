@@ -1,0 +1,67 @@
+name: build
+
+# Enforces the DUAL-LOADER HARD RULE: every push must build BOTH loader jars green
+# (archean-rise-fabric-<v>.jar via the root Loom build + archean-rise-neoforge-<v>.jar via the
+# :neoforge ModDevGradle subproject). See CLAUDE.md Constraints + docs/DECISIONS.md 2026-07-07.
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      # JDK 21 = MDG's NeoForm recompile (hard-pinned to 21); JDK 25 = the :neoforge compile toolchain
+      # + the Gradle-running JVM (matches the dev host). Both provided so foojay downloads nothing.
+      - name: Set up JDK 21 + 25
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: |
+            21
+            25
+
+      - name: Set up Gradle (with caching)
+        uses: gradle/actions/setup-gradle@v4
+
+      - name: Build both loaders
+        run: >-
+          ./gradlew build --no-daemon --stacktrace
+          -Dorg.gradle.java.installations.fromEnv=JAVA_HOME_21_X64,JAVA_HOME_25_X64
+
+      - name: Verify BOTH loader jars (dual-loader gate)
+        run: |
+          set -euo pipefail
+          FAB=$(ls .build/archean-rise-fabric-*.jar 2>/dev/null | grep -v sources | head -1 || true)
+          # NeoForge jar is copied into the shared /.build dir by :neoforge:copyJarToSharedBuild
+          NEO=$(ls .build/archean-rise-neoforge-*.jar 2>/dev/null | grep -v sources | head -1 || true)
+          echo "Fabric jar:   ${FAB:-MISSING}"
+          echo "NeoForge jar: ${NEO:-MISSING}"
+          [ -n "$FAB" ] || { echo "::error::Fabric loader jar not produced — dual-loader gate FAILED"; exit 1; }
+          [ -n "$NEO" ] || { echo "::error::NeoForge loader jar not produced — dual-loader gate FAILED"; exit 1; }
+          echo "Both loader jars built — dual-loader gate PASSED"
+
+      - name: Upload loader jars
+        uses: actions/upload-artifact@v4
+        with:
+          name: loader-jars
+          # include-hidden-files: the Fabric jar lands in .build/ (a dot-dir), which v4 skips by default
+          include-hidden-files: true
+          path: |
+            .build/archean-rise-fabric-*.jar
+            .build/archean-rise-neoforge-*.jar
+          if-no-files-found: error

@@ -1,0 +1,30 @@
+{
+  "feature": "minecraft:ore_infested",
+  "placement": [
+    {
+      "type": "archean_rise:in_archean_generator"
+    },
+    {
+      "type": "minecraft:count",
+      "count": 26
+    },
+    {
+      "type": "minecraft:in_square"
+    },
+    {
+      "type": "minecraft:height_range",
+      "height": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": -176
+        },
+        "max_inclusive": {
+          "absolute": 63
+        }
+      }
+    },
+    {
+      "type": "minecraft:biome"
+    }
+  ]
+}

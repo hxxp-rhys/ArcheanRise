@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:flat_cache",
+  "argument": {
+    "type": "minecraft:cache_2d",
+    "argument": {
+      "type": "archean_rise:voronoi",
+      "cell_size": 2400,
+      "salt": 500,
+      "output": "edge"
+    }
+  }
+}

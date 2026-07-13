@@ -1,0 +1,11 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": [
+    "archean_rise:ore_redstone",
+    "archean_rise:ore_tuff",
+    "archean_rise:ore_iron_small",
+    "archean_rise:ore_lapis_buried"
+  ],
+  "step": "underground_ores"
+}
