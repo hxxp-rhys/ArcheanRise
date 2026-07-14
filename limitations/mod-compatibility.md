@@ -50,6 +50,23 @@ Two things that aren't ours to fix:
   Regions Unexplored). Without one, they never appear. It also moves vanilla pillager outposts to plains
   only, giving other biomes its own designs. Both are by design.
 
+## More structure mods that work (0.3.17)
+
+When Dungeons Arise (and Seven Seas) · Explorify · Structory · Structory: Towers · Philip's Ruins ·
+Villages & Pillages · Repurposed Structures. All tested together — every structure builds properly,
+including Philip's deep Lost Soul City and Structory's underground ruins.
+
+Three things to know:
+
+- **Villages & Pillages needs YUNG's API.** Without it the game won't start at all.
+- **Repurposed Structures' structures are about twice as common as they should be.** Archean Rise spreads
+  structures 3× further apart, but it can't do that to Repurposed Structures without risking that mod's own
+  placement system, so it leaves it alone. Nothing breaks — there's just more of it. You can even it out in
+  `config/cristellib/repurposed_structures/structure_placement_config.json5` by multiplying every `spacing`
+  and `separation` by 3.
+- **When Dungeons Arise's "find Thornborn Towers" advancements don't work** — a bug in the mod, and it
+  happens in an ordinary world too.
+
 ## Two things that don't work
 
 - **Expanded Ecosphere** — the game won't start. It takes over the Overworld of *any* world type, so the

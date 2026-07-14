@@ -57,6 +57,15 @@ compete with Archean Rise, and none of them are listed here.
 | **YUNG's Better Caves** | — | — | ⚠️ | Works — but it makes the underground *very* hollow. See below. |
 | **Dungeons and Taverns** (+ all 9 of its add-ons) | — | — | ✅ | Includes the Ancient City, Stronghold, Nether Fortress, Pillager Outpost and Swamp Hut overhauls and the Desert Temple, Jungle Temple, Ocean Monument and Woodland Mansion replacements. One small note below. |
 | **Towns and Towers** | — | — | ✅ | One small note below. |
+| **When Dungeons Arise** | — | — | ✅ | Its "find Thornborn Towers / fishing hut" advancements don't work — a bug in the mod itself, and it happens in an ordinary world too. |
+| **When Dungeons Arise: Seven Seas** | — | — | ✅ | |
+| **Explorify** | — | — | ✅ | |
+| **Structory** | — | — | ✅ | |
+| **Structory: Towers** | — | — | ✅ | |
+| **Philip's Ruins** | — | — | ✅ | Its deep structures (Lost Soul City, Ancient Dungeon) build correctly. |
+| **Villages & Pillages** | — | — | ✅ | **Needs YUNG's API** — without it the game won't start. |
+| **Repurposed Structures** | — | — | ⚠️ | Works, but its structures are more common than Archean Rise intends. See below. |
+| **ChoiceTheorem's Overhauled Village** | — | — | — | **Not tested.** It needs Lithostitched, which wasn't installed, so it crashed on launch before it could be tested. Install Lithostitched (which does work with Archean Rise) and it should be testable. |
 | **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
@@ -103,9 +112,20 @@ Two things worth knowing, neither of them ours to fix:
   mods — Terralith, Biomes O' Plenty or Regions Unexplored. Without one of those installed you'll never
   see them. Again, by design.
 
+### Repurposed Structures — its structures are too common
+
+Archean Rise spreads structures about **3× further apart**, because the world is so much bigger. It can't do
+that to Repurposed Structures: that mod places its structures with its own custom system, and Archean Rise
+deliberately won't rewrite another mod's placement logic in case it breaks it.
+
+The result is that RS villages, outposts and temples turn up roughly **twice as often** as everything else.
+Nothing is broken — there's just more of it than intended.
+
+If you'd rather it matched, RS lets you fix this yourself. In
+`config/cristellib/repurposed_structures/structure_placement_config.json5`, multiply every `spacing` and
+`separation` by 3.
+
 **Tested and working on an early version (0.1.0), not re-checked since:**
-When Dungeons Arise · Repurposed Structures · ChoiceTheorem's
-Overhauled Village · Explorify · Villages & Pillages · Structory · Structory: Towers · Philip's Ruins ·
 AdoraBuild · Moog's Voyager Structures · Moog's End Structures · Better Archeology · Formations ·
 The Lost Castle · Explorations · Additional Structures · Luki's Grand Capitals.
 
