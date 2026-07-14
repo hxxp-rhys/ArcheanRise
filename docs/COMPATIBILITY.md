@@ -50,37 +50,55 @@ Testing is run by the project's own audit tooling (`/archeanrise-audit`), not by
 
 ---
 
+## Worldgen libraries
+
+Several popular biome and structure mods don't do the work themselves — they rely on a shared library.
+The library decides whether they work with Archean Rise, so it is worth listing separately.
+
+| Library | 0.3.14 | 0.3.15 | 0.3.16 | Last tested | Notes |
+|---|:---:|:---:|:---:|---|---|
+| **TerraBlender** | ❌ | ❌ | ✅ | ✅ 0.3.16 | Used by Biomes O' Plenty, Oh The Biomes We've Gone, Nature's Spirit, YUNG's Cave Biomes and Underground Worlds. Until 0.3.16 none of their biomes appeared in an Archean Rise world — Archean Rise simply wasn't on TerraBlender's list of worlds to add biomes to. **Fixed in 0.3.16**; it now is. |
+| **Lithostitched** | ❌ | ❌ | ✅ | ✅ 0.3.16 | Used by Terralith, Tectonic, Regions Unexplored, CTOV and ~25 other mods. **Until 0.3.16 this silently switched Archean Rise off.** The world still looked completely normal, but there were no rivers, no structure re-spacing and no ore rebalance — measured: ~65% of the deep ore simply gone. If you played 0.3.13–0.3.15 with any of those mods, **your world was not really an Archean Rise world.** Fixed in 0.3.16. |
+
+---
+
 ## Terrain and biome mods
 
 These are the mods most likely to conflict, because they want to do the same job as Archean Rise.
 
-| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+| Mod | 0.3.14 | 0.3.15 | 0.3.16 | Last tested | Notes |
 |---|:---:|:---:|:---:|---|---|
 | **Expanded Ecosphere** | ❌ | ❌ | ❌ | ❌ 0.1.5 | **The game will not start.** It replaces the Overworld of *any* world type, including Archean Rise's, so the two can never both work. Archean Rise refuses to launch beside it on purpose, with an explanation, rather than let it silently take over your world. |
-| **Biomes O' Plenty** | — | — | — | ❌ 0.2.x | No crash — but **none of its biomes ever appear** in an Archean Rise world. |
-| **Oh The Biomes We've Gone** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
-| **Nature's Spirit** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
-| **YUNG's Cave Biomes** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
-| **Underground Worlds** | — | — | — | ❌ 0.2.x | Same as above — biomes never appear. |
-| **Terralith** | — | — | — | ✅ 0.2.x | Its **biomes** appear and work. Its **terrain shape** does not — Archean Rise generates the land, Terralith paints biomes onto it. Install it for the biomes, not for the terrain. |
-| **Regions Unexplored** | — | — | — | ✅ 0.2.x | Biomes appear in Archean Rise terrain. |
+| **Biomes O' Plenty** | ❌ | ❌ | ✅ | ✅ 0.3.16 | **Works from 0.3.16.** Before that, none of its biomes ever appeared — no crash, they simply never generated. Its biomes now grow on Archean Rise's terrain. |
+| **Oh The Biomes We've Gone** | — | — | — | ❌ 0.2.x | Uses TerraBlender, which was fixed in 0.3.16 — so this **should** now work, but it has not been tested yet. Treat as unknown until it is. |
+| **Nature's Spirit** | — | — | — | ❌ 0.2.x | As above — TerraBlender-based, expected to work from 0.3.16, not yet tested. |
+| **YUNG's Cave Biomes** | — | — | — | ❌ 0.2.x | As above — TerraBlender-based, expected to work from 0.3.16, not yet tested. |
+| **Underground Worlds** | — | — | — | ❌ 0.2.x | As above — TerraBlender-based, expected to work from 0.3.16, not yet tested. |
+| **Terralith** | — | — | — | ⚠️ 0.2.x | **Its old tick is not trustworthy — re-test pending.** Its biomes do appear, and its terrain correctly loses to Archean Rise's. But it also quietly replaces several of the noise settings Archean Rise itself uses (it roughly doubles the scale of our erosion), and its biomes arrive wearing Archean Rise's surfaces rather than their own, which looks wrong. Playable, but not properly verified. |
+| **Regions Unexplored** | — | — | — | ⚠️ 0.2.x | **Its old tick is not trustworthy — re-test pending.** It is one of the mods that used to silently switch Archean Rise off (see Lithostitched above). That is fixed in 0.3.16, but the pairing has not been re-tested since. |
 | **Geophilic** | — | — | — | ✅ 0.2.x | Biomes appear in Archean Rise terrain. |
-| **Tectonic** | — | — | — | ✅ 0.2.x | Safe to install, but **it has no effect** — Archean Rise generates the terrain instead. |
+| **Tectonic** | — | — | — | ⚠️ 0.2.x | **Its old tick is not trustworthy — re-test pending.** Its terrain genuinely has no effect (Archean Rise generates the land). But it is not the harmless no-op the old entry claimed: it moves the snow line by ~128 blocks **everywhere**, and drops ocean monuments by 30 blocks, whatever world you are in. |
 | **BetterEnd / BetterNether / Incendium / Nullscape** | — | — | — | ✅ 0.2.x | Fine. Archean Rise only changes the Overworld; the Nether and the End are left completely alone. |
 | **terrain-diffusion-mc** | — | — | — | ⚠️ 0.2.x | **Not recommended.** It doesn't break your world, but it misbehaves on non-native world types and downloads ~2.5 GB of models on first launch. |
 
-> **Why the biome mods above fail:** Biomes O' Plenty and its relatives add their biomes through a
-> library called TerraBlender, which places biomes using vanilla's terrain rules. Archean Rise doesn't
-> use vanilla's terrain rules, so TerraBlender's biomes never get a chance to be placed. Nothing is
-> broken; the biomes simply never come up. A bridge for this is planned.
+> **What changed in 0.3.16.** Biomes O' Plenty and its relatives add biomes through a library called
+> **TerraBlender**, which keeps a list of the worlds it is allowed to add biomes to. Archean Rise was
+> never on that list, so their biomes had nowhere to go. Archean Rise now adds itself to it, and they
+> generate normally. Nothing about Archean Rise's terrain changed — the biomes are simply painted onto
+> the land it already made.
+>
+> **If you are on 0.3.13–0.3.15 with Terralith, Tectonic, Regions Unexplored or CTOV, please update.**
+> Those mods use a second library, **Lithostitched**, which used to make Archean Rise fail to recognise
+> its own world. Everything still generated and looked right, but the rivers, the ore balance, the
+> structure spacing and the terrain grading were all silently switched off.
 
 ---
 
 ## Structure mods
 
-| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+| Mod | 0.3.14 | 0.3.15 | 0.3.16 | Last tested | Notes |
 |---|:---:|:---:|:---:|---|---|
-| **Create: Let The Adventure Begin** | ❌ | ✅ | ✅ | ✅ 0.3.15 | **NeoForge only, and Create must be installed.** On 0.3.13 Archean Rise carved the ground out from under its buried cave ruins and left floating chunks of terrain overhead — fixed in 0.3.14. On Fabric it crashes the server at boot, because it references Create blocks but Create has no Fabric 1.21.1 build; that is an upstream defect, not an Archean Rise one. |
+| **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | ✅ 0.3.16 | **NeoForge only, and Create must be installed.** On 0.3.13 Archean Rise carved the ground out from under its buried cave ruins and left floating chunks of terrain overhead — fixed in 0.3.14 and re-verified on every release since. On Fabric it crashes the server at boot, because it references Create blocks but Create has no Fabric 1.21.1 build; that is an upstream defect, not an Archean Rise one. |
 | **YUNG's Better Dungeons** | — | — | — | ✅ 0.1.0 | |
 | **YUNG's Better Mineshafts** | — | — | — | ✅ 0.1.0 | |
 | **YUNG's Better Strongholds** | — | — | — | ✅ 0.1.0 | |
@@ -135,7 +153,7 @@ around its buried structures — the rest of this family is a priority for testi
 
 ## Performance and server mods
 
-| Mod | 0.3.13 | 0.3.14 | 0.3.15 | Last tested | Notes |
+| Mod | 0.3.14 | 0.3.15 | 0.3.16 | Last tested | Notes |
 |---|:---:|:---:|:---:|---|---|
 | **C2ME** | — | — | — | ✅ 0.2.3 | Recommended. Roughly doubled world-generation speed in testing. |
 | **Lithium** | — | — | — | ✅ 0.2.3 | Recommended. |

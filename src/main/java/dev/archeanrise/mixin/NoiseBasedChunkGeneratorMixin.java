@@ -3,21 +3,29 @@ package dev.archeanrise.mixin;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
+import dev.archeanrise.ArcheanRise;
+import dev.archeanrise.duck.ArcheanGeneratorDuck;
 import dev.archeanrise.sitegrading.GradePad;
 import dev.archeanrise.sitegrading.SiteGrading;
 import dev.archeanrise.worldgen.BiomeBorderBlend;
+import net.minecraft.core.Holder;
 import net.minecraft.world.level.ChunkPos;
 import net.minecraft.world.level.StructureManager;
+import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
 import net.minecraft.world.level.chunk.ChunkAccess;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.levelgen.Beardifier;
 import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.NoiseChunk;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.NoiseRouter;
 import net.minecraft.world.level.levelgen.RandomState;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.util.List;
 
@@ -29,7 +37,33 @@ import java.util.List;
  * BeardifierOrMarker interface, so returning the composite is type-safe at the call site.
  */
 @Mixin(NoiseBasedChunkGenerator.class)
-public abstract class NoiseBasedChunkGeneratorMixin {
+public abstract class NoiseBasedChunkGeneratorMixin implements ArcheanGeneratorDuck {
+
+	/**
+	 * Archean Rise's generator identity, decided ONCE at construction and never re-derived.
+	 *
+	 * <p>Vanilla assigns {@code this.settings} in the constructor. Mods that rebuild a generator's
+	 * {@code NoiseGeneratorSettings} do it much later — Lithostitched does it at {@code ServerAboutToStart},
+	 * writing back a KEYLESS {@code Holder.direct(...)} whose {@code unwrapKey()} is empty. Deriving our
+	 * identity from that holder at CALL time therefore lost it, silently disabling every AR subsystem
+	 * (see {@link ArcheanGeneratorDuck}). Capturing it HERE, before anyone can touch the field, cannot be
+	 * taken away — by Lithostitched or by any future mod that swaps the holder.
+	 */
+	@Unique
+	private boolean archean_rise$isArchean;
+
+	@Inject(method = "<init>", at = @At("TAIL"))
+	private void archean_rise$captureIdentity(BiomeSource biomeSource,
+			Holder<NoiseGeneratorSettings> settings, CallbackInfo ci) {
+		this.archean_rise$isArchean = settings.unwrapKey()
+				.map(key -> key.location().getNamespace().equals(ArcheanRise.MOD_ID))
+				.orElse(false);
+	}
+
+	@Override
+	public boolean archean_rise$isArcheanGenerator() {
+		return this.archean_rise$isArchean;
+	}
 
 	@WrapOperation(method = "createNoiseChunk",
 			at = @At(value = "INVOKE",

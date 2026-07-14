@@ -4,7 +4,6 @@ import dev.archeanrise.ArcheanRise;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.chunk.ChunkGenerator;
-import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraft.world.level.levelgen.structure.Structure;
 import net.minecraft.world.level.levelgen.structure.TerrainAdjustment;
@@ -82,11 +81,27 @@ public final class SiteGrading {
 		return ArcheanRise.config == null || ArcheanRise.config.siteGradingEnabled;
 	}
 
+	/**
+	 * The master gate: is this generator ours? EVERY Archean Rise worldgen subsystem hangs off this —
+	 * rivers, structure spacing, the ore rebalance, SiteGrading, the foreign-inset earthwork, biome-border
+	 * blending, and every structure gate.
+	 *
+	 * <p><b>Do NOT re-derive this from {@code generatorSettings().unwrapKey()} (v0.3.16).</b> That is what
+	 * this used to do, and it was a silent single point of failure: the settings {@code Holder} is a mutable
+	 * field, and <b>Lithostitched</b> — required by Terralith, Tectonic, Regions Unexplored, CTOV and ~25
+	 * other mods — rebuilds it and writes back a KEYLESS {@code Holder.direct(...)} whenever any loaded mod
+	 * ships a {@code lithostitched:add_surface_rule} for the overworld. {@code unwrapKey()} then returns
+	 * empty, the check fell to {@code orElse(false)}, and Archean Rise switched itself off entirely while
+	 * the terrain still looked perfectly correct. Measured: ~65% of ore in the y −96..−160 band gone, and
+	 * the river graph and structure-spacing rescale never built at all.
+	 *
+	 * <p>The identity is now captured at generator CONSTRUCTION — before any mod can reach the field — and
+	 * simply read back here. See {@link dev.archeanrise.duck.ArcheanGeneratorDuck}. A boot-time self-check
+	 * in {@link dev.archeanrise.ArcheanRise} makes a lost identity fail LOUDLY rather than silently.
+	 */
 	public static boolean isArcheanGenerator(ChunkGenerator generator) {
-		return generator instanceof NoiseBasedChunkGenerator noise
-				&& noise.generatorSettings().unwrapKey()
-						.map(key -> key.location().getNamespace().equals(ArcheanRise.MOD_ID))
-						.orElse(false);
+		return generator instanceof dev.archeanrise.duck.ArcheanGeneratorDuck duck
+				&& duck.archean_rise$isArcheanGenerator();
 	}
 
 	/**

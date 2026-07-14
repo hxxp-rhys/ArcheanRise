@@ -2,6 +2,32 @@
 
 Verified live 2026-07-04 (see `docs/COMPATIBILITY.md` for the full verdicts and method).
 
+## ⚠ IF YOU RAN 0.3.13–0.3.15 WITH Terralith, Tectonic, Regions Unexplored or CTOV — UPDATE
+
+Those mods all require a library called **Lithostitched**, and on 0.3.13–0.3.15 Lithostitched made Archean
+Rise **stop recognising its own world**. Nothing crashed, and the terrain still looked completely correct —
+but underneath, **rivers, structure spacing, the ore rebalance, site grading and every structure gate were
+switched off**. Measured: roughly 65% of the deep ore simply never generated.
+
+The cause: Archean Rise identified its own generator by looking up its noise-settings registry key. That key
+lives in a mutable field, and Lithostitched replaces it with a keyless one whenever any installed mod adds a
+surface rule to the overworld. The lookup then failed, and Archean Rise concluded — silently — that the world
+was not its own.
+
+**Fixed in 0.3.16.** The identity is now captured when the generator is built, before any mod can touch it,
+and Archean Rise now shouts in the log (and warns ops in-game) if it is ever handed a world it does not
+recognise, instead of quietly generating a hollow one. Worlds generated on 0.3.13–0.3.15 alongside those mods
+keep whatever they already generated; only new chunks are correct.
+
+## Biomes O' Plenty and friends now work (0.3.16)
+
+Biomes O' Plenty, Oh The Biomes We've Gone, Nature's Spirit, YUNG's Cave Biomes and Underground Worlds all add
+their biomes through a library called **TerraBlender**, which keeps a list of the worlds it is allowed to add
+biomes to. Archean Rise was never on that list, so their biomes had nowhere to go — no crash, they just never
+generated. **From 0.3.16 Archean Rise adds itself to that list**, and they generate normally on Archean Rise's
+terrain. Only Biomes O' Plenty has actually been tested so far; the others should follow, but are not yet
+confirmed. Archean Rise's own terrain is unchanged — the biomes are simply painted onto the land it makes.
+
 - **The Create ecosystem is unavailable, mod-wide, on our platform.** Create has no Fabric
   MC 1.21.1 build (Fabric ends at 1.20.1; 1.21.1 Create is NeoForge-only). Every
   Create-integrated structure mod is therefore unusable alongside Archean Rise regardless of

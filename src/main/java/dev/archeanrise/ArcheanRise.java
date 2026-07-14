@@ -99,6 +99,44 @@ public final class ArcheanRise {
 	}
 
 	/**
+	 * SELF-CHECK (v0.3.16): the world IS an Archean Rise world — so does Archean Rise still own its own
+	 * generator? If not, every worldgen subsystem is silently off and the player would never know: the
+	 * terrain still generates correctly (the density functions are plain data), but there are no rivers, no
+	 * structure re-spacing, no ore rebalance, no site grading and no structure gates.
+	 *
+	 * <p>This is not hypothetical. Until 0.3.16 the identity was re-derived on every call from the
+	 * generator's noise-settings registry key, and <b>Lithostitched</b> — required by Terralith, Tectonic,
+	 * Regions Unexplored, CTOV and ~25 other mods — replaces that holder with a KEYLESS one whenever any
+	 * loaded mod ships a {@code lithostitched:add_surface_rule} for the overworld. Archean Rise switched
+	 * itself off, in complete silence, for months.
+	 *
+	 * <p>The identity is now captured at generator construction and cannot be stolen. This check exists so
+	 * that if some future mod DOES manage to take it — by replacing the generator itself, say — we say so,
+	 * loudly, in the log AND in-game to ops, instead of quietly generating a hollow world.
+	 */
+	private static void checkGeneratorIdentity(net.minecraft.server.level.ServerLevel overworld) {
+		net.minecraft.world.level.chunk.ChunkGenerator generator =
+				overworld.getChunkSource().getGenerator();
+		if (dev.archeanrise.sitegrading.SiteGrading.isArcheanGenerator(generator)) {
+			return; // healthy — we own our generator
+		}
+		// Say EXACTLY what went wrong: the class we were handed, and whether it is even a noise generator.
+		// Without this the failure is a shrug; with it, a bug report is actionable in one line.
+		String kind = generator instanceof dev.archeanrise.duck.ArcheanGeneratorDuck
+				? "it IS a noise generator, but it was not constructed from Archean Rise noise settings"
+				: "it is not even a vanilla noise generator — another mod has SUBSTITUTED the generator object";
+		LOGGER.error("ARCHEAN RISE IS DISABLED IN THIS WORLD. The world is an Archean Rise world, but Archean "
+				+ "Rise does not recognise this dimension's chunk generator: {} ({}). Terrain will still "
+				+ "generate (it is data), but RIVERS, STRUCTURE SPACING, THE ORE REBALANCE, SITE GRADING and "
+				+ "ALL STRUCTURE GATES ARE OFF. This is a mod conflict, not a corrupt world — remove the "
+				+ "offending worldgen mod and regenerate, or report it with your full mod list.",
+				generator.getClass().getName(), kind);
+		joinWarning = "[Archean Rise] DISABLED — another mod replaced this world's chunk generator. Terrain "
+				+ "still generates, but rivers, ore balance, structure spacing and site grading are all OFF. "
+				+ "See the server log.";
+	}
+
+	/**
 	 * Region-file write codec, applied globally before any world/region is created. Its main use
 	 * is enabling LZ4 in SINGLEPLAYER (no server.properties there); on a dedicated server
 	 * region-file-compression in server.properties is applied later and wins. LZ4 is lossless and
@@ -144,6 +182,7 @@ public final class ArcheanRise {
 			// Keep in sync with tools/generate-worldgen.mjs WORLD.
 			LOGGER.info("Archean Rise static world active (Y -256 to 768, mountain cap 708, seafloor -128; "
 					+ "relief 3.32x, landforms 6.64x, biomes 12x)");
+			checkGeneratorIdentity(overworld);
 		} else if (isOldTierWorld || (minY == -128 && height == 640)) {
 			String kind = isOldTierWorld ? "a pre-0.3.0 TIERED" : "the legacy v0.1";
 			LOGGER.warn("This overworld matches {} Archean Rise geometry (Y {} to {}). The tier system was "

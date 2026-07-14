@@ -6,8 +6,8 @@ import dev.archeanrise.mixin.StructurePlacementAccessor;
 import net.minecraft.core.Holder;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.chunk.ChunkGeneratorStructureState;
-import net.minecraft.world.level.levelgen.NoiseBasedChunkGenerator;
 import net.minecraft.world.level.levelgen.structure.StructureSet;
+import dev.archeanrise.sitegrading.SiteGrading;
 import net.minecraft.world.level.levelgen.structure.placement.RandomSpreadStructurePlacement;
 import net.minecraft.world.level.levelgen.structure.placement.StructurePlacement;
 
@@ -58,18 +58,19 @@ public final class StructureSpacing {
 	}
 
 	/**
-	 * True only for the Archean Rise static-world generator (noise-settings key
-	 * {@code archean_rise:rise}); false for the Nether/End, non-Archean generators, and anything
-	 * unrecognised (including a pinned pre-0.3.0 tier datapack, which is unsupported).
+	 * True only for the Archean Rise generator; false for the Nether/End, non-Archean generators, and
+	 * anything unrecognised (including a pinned pre-0.3.0 tier datapack, which is unsupported).
+	 *
+	 * <p><b>Delegates to {@link SiteGrading#isArcheanGenerator} — do not re-implement it here (v0.3.16).</b>
+	 * This method used to carry its OWN copy of the identity test, re-derived from
+	 * {@code generatorSettings().unwrapKey()}. Lithostitched replaces that holder with a keyless
+	 * {@code Holder.direct(...)}, so the copy silently returned false and structure spacing stopped being
+	 * rescaled — even after the shared gate had been fixed. A duplicated predicate is a predicate that only
+	 * gets fixed once: the same copy-paste (the {@code box.maxY() < SEA_LEVEL} test, in four places) is what
+	 * produced the create_ltab floating-island bug. One gate, one definition.
 	 */
 	public static boolean appliesTo(ChunkGenerator generator) {
-		if (!(generator instanceof NoiseBasedChunkGenerator noise)) {
-			return false;
-		}
-		return noise.generatorSettings().unwrapKey()
-				.map(key -> key.location().getNamespace().equals(ArcheanRise.MOD_ID)
-						&& key.location().getPath().equals("rise"))
-				.orElse(false);
+		return SiteGrading.isArcheanGenerator(generator);
 	}
 
 	/** Rescale the state's structure sets in place (idempotent per state; runs once at createState). */
