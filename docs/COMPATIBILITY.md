@@ -121,9 +121,16 @@ deliberately won't rewrite another mod's placement logic in case it breaks it.
 The result is that RS villages, outposts and temples turn up roughly **twice as often** as everything else.
 Nothing is broken — there's just more of it than intended.
 
-If you'd rather it matched, RS lets you fix this yourself. In
-`config/cristellib/repurposed_structures/structure_placement_config.json5`, multiply every `spacing` and
-`separation` by 3.
+If you'd rather it matched, RS lets you fix this yourself, in
+`config/cristellib/repurposed_structures/structure_placement_config.json5`. **Multiply `spacing` and
+`separation` by 3 — but only on the Overworld entries**, and mind the two exceptions:
+
+- **Leave anything ending in `_nether` or `_end` alone.** Archean Rise only changes the Overworld, so
+  spreading those out would just make them rarer for no reason.
+- **Leave the four `mineshafts_*` entries at `spacing: 1`.** They're meant to be everywhere, and Archean
+  Rise doesn't spread out vanilla mineshafts either.
+
+That's 17 entries to change. So `villages_overworld` goes from spacing 50 / separation 25 to **150 / 75**.
 
 **Tested and working on an early version (0.1.0), not re-checked since:**
 AdoraBuild · Moog's Voyager Structures · Moog's End Structures · Better Archeology · Formations ·

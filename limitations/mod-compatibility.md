@@ -62,8 +62,10 @@ Three things to know:
 - **Repurposed Structures' structures are about twice as common as they should be.** Archean Rise spreads
   structures 3× further apart, but it can't do that to Repurposed Structures without risking that mod's own
   placement system, so it leaves it alone. Nothing breaks — there's just more of it. You can even it out in
-  `config/cristellib/repurposed_structures/structure_placement_config.json5` by multiplying every `spacing`
-  and `separation` by 3.
+  `config/cristellib/repurposed_structures/structure_placement_config.json5` by tripling `spacing` and
+  `separation` on the **Overworld** entries only — leave the `_nether` and `_end` ones alone (Archean Rise
+  doesn't change those dimensions), and leave the four `mineshafts_*` ones at `spacing: 1`. See
+  [COMPATIBILITY.md](../docs/COMPATIBILITY.md) for the details.
 - **When Dungeons Arise's "find Thornborn Towers" advancements don't work** — a bug in the mod, and it
   happens in an ordinary world too.
 
