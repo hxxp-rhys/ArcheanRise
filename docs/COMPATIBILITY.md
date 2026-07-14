@@ -66,6 +66,16 @@ compete with Archean Rise, and none of them are listed here.
 | **Villages & Pillages** | — | — | ✅ | **Needs YUNG's API** — without it the game won't start. |
 | **Repurposed Structures** | — | — | ⚠️ | Works, but its structures are more common than Archean Rise intends. See below. |
 | **ChoiceTheorem's Overhauled Village** | — | — | — | **Not tested.** It needs Lithostitched, which wasn't installed, so it crashed on launch before it could be tested. Install Lithostitched (which does work with Archean Rise) and it should be testable. |
+| **Luki's Ancient Cities · Crazy Chambers · Strongholds · Woodland Mansions · Grand Capitals** | — | — | ✅ | All five. The Ancient City and Trial Chambers are very deep and build correctly. |
+| **AdoraBuild** | — | — | ✅ | |
+| **Better Archeology** | — | — | ✅ | |
+| **The Lost Castle** | — | — | ✅ | |
+| **Immersive Structures** | — | — | ✅ | |
+| **Thun's Structures** | — | — | ✅ | |
+| **Unnamed Desert** · **Unnamed Sea** | — | — | ✅ | |
+| **Additional Structures** | — | — | ⚠️ | Works, but a few of its small decorations can leave a lump of land floating. See below. |
+| **Explorations** | — | — | ⚠️ | Works, but a few of its small decorations can leave a lump of land floating. See below. |
+| **Formations Overworld** | — | — | — | **Not tested — it crashes the game.** It needs **SuperMartijn642's Core Lib**, doesn't say so, and won't start without it. Install that first. Nothing to do with Archean Rise. |
 | **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
@@ -111,6 +121,29 @@ Two things worth knowing, neither of them ours to fix:
 - Its "**exclusive**" villages (Classic, Rustic, Iberian and so on) only appear in biomes from *other*
   mods — Terralith, Biomes O' Plenty or Regions Unexplored. Without one of those installed you'll never
   see them. Again, by design.
+
+### ⚠️ Additional Structures / Explorations — occasional floating land (our bug, not theirs)
+
+Both mods add tiny decorations — a bush, a pile of logs, a well — as full structures. Archean Rise reshapes
+the ground around other mods' buildings so they sit into the hill properly, and on a **steep mountainside**
+it can do that a bit too enthusiastically around one of these little things, cutting the rock away beneath a
+nearby column and leaving it hanging in the air.
+
+It's uncommon (4 sites out of 89 we checked) and **it is our fault, not the mods'**. A proper fix is coming.
+
+Until then, if it bothers you, add this to `config/archean_rise.json`:
+
+```json
+"insetForeignForceBuriedStructures": [
+  "additionalstructures:bush_4",
+  "additionalstructures:sewage_system_1",
+  "explorations:forgotten_well",
+  "explorations:logs"
+]
+```
+
+That tells Archean Rise to leave the ground around those four alone. Everything else still gets the proper
+terrain fit. (Only new land is affected — anywhere you've already explored stays as it is.)
 
 ### Repurposed Structures — its structures are too common
 

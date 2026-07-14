@@ -69,6 +69,21 @@ Three things to know:
 - **When Dungeons Arise's "find Thornborn Towers" advancements don't work** — a bug in the mod, and it
   happens in an ordinary world too.
 
+## Even more structure mods that work (0.3.17)
+
+All five **Luki's** packs (Ancient Cities, Crazy Chambers, Strongholds, Woodland Mansions, Grand Capitals) ·
+AdoraBuild · Better Archeology · The Lost Castle · Immersive Structures · Thun's Structures · Unnamed Desert ·
+Unnamed Sea · Additional Structures · Explorations.
+
+Two things to know:
+
+- **Formations Overworld crashes the game.** It needs **SuperMartijn642's Core Lib** and doesn't tell you so.
+  Install that and it'll start. Nothing to do with Archean Rise.
+- **Additional Structures and Explorations can leave a lump of land floating**, occasionally, on steep
+  mountainsides. **That one is our bug, not theirs** — we reshape the ground around other mods' buildings, and
+  around a few of their tiny decorations (a bush, a log pile, a well) we overdo it. A fix is coming; there's a
+  config workaround in [COMPATIBILITY.md](../docs/COMPATIBILITY.md) meanwhile.
+
 ## Two things that don't work
 
 - **Expanded Ecosphere** — the game won't start. It takes over the Overworld of *any* world type, so the
