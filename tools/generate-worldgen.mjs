@@ -96,7 +96,7 @@ const NOISE_SCALE_CURVE = new Map([
 // 1500-block scale near every coast/lowland — the field-reported "frozen biomes next to cherry
 // and plains" patchwork. A single Sh-scaled climate field is continuous, so temperature bands
 // transition strictly in order (hot → moderate → cold) at multi-km wavelength — the natural
-// gradient. Land biomes are 12× (not 18×) as a result; still enormous, and seam-free.
+// gradient. Land biomes are Sh× (8× as of 2026-07-13; was 12×) as a result; seam-free either way.
 
 // tree builders, warp/voronoi/ridged nodes and the spec pipeline itself live in
 // pipeline-core.mjs — shared verbatim with the preview tool. Thin NS/TC-bound wrappers:

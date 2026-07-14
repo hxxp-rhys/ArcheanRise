@@ -8,7 +8,7 @@ version = "${version}"
 displayName = "Archean Rise"
 authors = "Archean Rise Team"
 description = '''
-Server-first terrain generation overhaul: extended world range (-256 to +768, mountains to 708), multi-scale cave systems, natural biome transitions, and compatibility with popular structure and biome mods.'''
+A much taller, more dramatic world for Minecraft 1.21.1: terrain from Y -256 to 768, mountains to 708, continent-scale geography and rivers. Works with Biomes O' Plenty, Terralith and other biome mods.'''
 
 # Mixin config — same JSON as the Fabric build (shared from ../src/main/resources).
 [[mixins]]

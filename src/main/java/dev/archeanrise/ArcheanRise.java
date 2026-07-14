@@ -181,7 +181,7 @@ public final class ArcheanRise {
 		if (minY == -256 && height == 1024) {
 			// Keep in sync with tools/generate-worldgen.mjs WORLD.
 			LOGGER.info("Archean Rise static world active (Y -256 to 768, mountain cap 708, seafloor -128; "
-					+ "relief 3.32x, landforms 6.64x, biomes 12x)");
+					+ "relief 3.32x, landforms 6.64x, biomes 8x)");
 			checkGeneratorIdentity(overworld);
 		} else if (isOldTierWorld || (minY == -128 && height == 640)) {
 			String kind = isOldTierWorld ? "a pre-0.3.0 TIERED" : "the legacy v0.1";

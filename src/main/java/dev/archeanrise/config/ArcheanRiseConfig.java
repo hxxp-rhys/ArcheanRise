@@ -598,7 +598,7 @@ public class ArcheanRiseConfig {
 
 				  // Scale structure spacing/separation by Ss = 3.0x in the Archean Rise world so ALL
 				  // structures — vanilla and add-on mods — spread apart to match the enlarged biomes
-				  // (12x). Per-generator, so the Nether/End are untouched and
+				  // (8x). Per-generator, so the Nether/End are untouched and
 				  // /locate + explorer maps + villager trades stay consistent; concentric-rings
 				  // (strongholds) and frequency-driven sets (mineshafts/buried treasure) are never
 				  // scaled. Applies at world/generator load; already-placed structures are not moved.

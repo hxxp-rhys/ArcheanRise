@@ -18,7 +18,14 @@ export const DEFAULT_WORLD = {
                   // 655..708 top-slide backstop is TC-derived since M1)
   sr: 6.64,       // PV/ridges wavelength — RETAINED for the biome-variant/river-band channel
                   // only (terrain relief no longer reads PV); spec rivers get their own graph
-  sh: 12.0,       // climate wavelength (biome UX ceiling; spec's "slower still" satisfied)
+  sh: 8.0,        // climate + horizontal-geography wavelength. 12.0 -> 8.0 (2026-07-13, user call:
+                  // "shrink the biome scale to 8x"). NOTE THIS IS NOT A BIOME-ONLY KNOB: per
+                  // NOISE_SCALE_CURVE it divides continentalness, erosion, temperature AND vegetation.
+                  // So continents/oceans and erosion regions also shrink by 12/8 = 1.5x, which is the
+                  // POINT — climate and geography stay coherent. Decoupling them (shrinking only
+                  // temperature/vegetation) would scatter biome patches that ignore the landscape.
+                  // Ridge/PV wavelength (sr = 6.64) and vertical relief (s = 3.32) are UNTOUCHED, so
+                  // mountains keep their shape and height. Seed-baked: changing this changes the world.
 };
 
 // ---- TerrainConfig (spec §4 — single source of truth; sea-63 recompute per DECISIONS) ----

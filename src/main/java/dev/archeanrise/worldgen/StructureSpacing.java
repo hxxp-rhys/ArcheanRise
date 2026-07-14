@@ -21,7 +21,7 @@ import java.util.Optional;
  * Ss structure-spacing scaler (issue 3 / real-scale-design.md §4, §5.5). At {@code ChunkGenerator.
  * createState} RETURN, on the Archean Rise static-world generator, rescale every {@code random_spread}
  * structure set's spacing/separation by Ss so ALL structures — vanilla AND add-on mods — spread
- * farther apart in the enlarged world (biomes are 12× vanilla; vanilla-density villages would read
+ * farther apart in the enlarged world (biomes are 8× vanilla; vanilla-density villages would read
  * as suburbs). This is the one scale-aware treatment add-on structures receive (SiteGrading excludes
  * them by structure class; this operates on the structure-SET placement generically, so any mod's
  * {@code random_spread} set is covered).
@@ -45,9 +45,12 @@ public final class StructureSpacing {
 
 	/**
 	 * Structure-spacing factor Ss (real-scale-design.md §4/§7.2). 3.00 is the design doc's UX
-	 * ceiling — village-to-village stays a ~5-minute sprint worst case — and matches the Sh=12
-	 * biome ceiling the static world holds (docs/DECISIONS.md 2026-07-09 pivot). Single source of
-	 * truth for the runtime scaler.
+	 * ceiling — village-to-village stays a ~5-minute sprint worst case. It is an ABSOLUTE
+	 * travel-time ceiling, deliberately NOT re-derived from the biome scale: when Sh moved 12 → 8
+	 * (2026-07-13) this was left at 3.00 so the walk between villages does not change. The knock-on
+	 * is that structures are now sparser relative to biomes than before (biomes shrank, spacing did
+	 * not). If villages start to feel too rare, this is the dial — but it is a placement change, so
+	 * it needs its own decision. Single source of truth for the runtime scaler.
 	 */
 	private static final double SS = 3.00;
 

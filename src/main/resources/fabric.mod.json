@@ -3,7 +3,7 @@
 	"id": "archean_rise",
 	"version": "${version}",
 	"name": "Archean Rise",
-	"description": "Server-first terrain generation overhaul: extended world range (-256 to +768, mountains to 708), multi-scale cave systems, natural biome transitions, and compatibility with popular structure and biome mods.",
+	"description": "A much taller, more dramatic world for Minecraft 1.21.1: terrain from Y -256 to 768, mountains to 708, continent-scale geography and rivers. Works with Biomes O' Plenty, Terralith and other biome mods.",
 	"authors": [
 		"Archean Rise Team"
 	],

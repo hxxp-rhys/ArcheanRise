@@ -331,7 +331,7 @@
       "shift_x": "archean_rise:rise/shift_x",
       "shift_y": 0,
       "shift_z": "archean_rise:rise/shift_z",
-      "xz_scale": 0.020833333333333332,
+      "xz_scale": 0.03125,
       "y_scale": 0
     },
     "vegetation": {
@@ -340,7 +340,7 @@
       "shift_x": "archean_rise:rise/shift_x",
       "shift_y": 0,
       "shift_z": "archean_rise:rise/shift_z",
-      "xz_scale": 0.020833333333333332,
+      "xz_scale": 0.03125,
       "y_scale": 0
     },
     "vein_gap": {
