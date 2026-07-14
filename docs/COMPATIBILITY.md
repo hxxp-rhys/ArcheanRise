@@ -22,7 +22,7 @@ compete with Archean Rise, and none of them are listed here.
 | **Biomes O' Plenty** | ❌ | ✅ | — | Works from 0.3.16. Before that its biomes never appeared at all. |
 | **Oh The Biomes We've Gone** | — | — | ✅ | Needs CorgiLib + GeckoLib. |
 | **Nature's Spirit** | — | — | ✅ | |
-| **YUNG's Cave Biomes** | — | — | ✅ | **Needs YUNG's API** — it will not load without it. |
+| **YUNG's Cave Biomes** | — | — | ✅ | **Needs YUNG's API** — it will not load without it. Both its cave biomes appear; Lost Caves only turns up under hot, dry land, so look in deserts. |
 | **Underground Worlds** | — | — | ✅ | |
 | **Oh The Trees You'll Grow** | — | — | ✅ | Changes how saplings grow; doesn't touch terrain. |
 | **Terralith** | — | — | ✅ | **Install the MOD, not the datapack.** The mod works — its biomes appear on Archean Rise's terrain. The standalone *datapack* version would replace Archean Rise's world entirely. |
@@ -44,9 +44,43 @@ compete with Archean Rise, and none of them are listed here.
 
 | Mod | 0.3.15 | 0.3.16 | 0.3.17 | Notes |
 |---|:---:|:---:|:---:|---|
+| **YUNG's API** | — | — | ✅ | Required by every YUNG's mod below. |
+| **YUNG's Better Dungeons** | — | — | ✅ | |
+| **YUNG's Better Strongholds** | — | — | ✅ | |
+| **YUNG's Better Desert Temples** | — | — | ✅ | |
+| **YUNG's Better Jungle Temples** | — | — | ✅ | |
+| **YUNG's Better Ocean Monuments** | — | — | ✅ | |
+| **YUNG's Better Witch Huts** | — | — | ✅ | |
+| **YUNG's Bridges** | — | — | ✅ | |
+| **YUNG's Extras** | — | — | ✅ | |
+| **YUNG's Better Mineshafts** | — | — | ⚠️ | Works, but one of its thirteen mineshaft types needs a one-line setting change. See below. |
+| **YUNG's Better Caves** | — | — | ⚠️ | Works — but it makes the underground *very* hollow. See below. |
 | **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
 
-**Tested and working on an early version (0.1.0), not re-checked since:** all eleven YUNG's mods · Towns
+All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
+Archean Rise terrain, and none of them leave floating lumps of land behind.
+
+### YUNG's Better Mineshafts — change one setting
+
+Better Mineshafts only ever digs between **y −55 and y 30**. Archean Rise's world is far deeper than
+vanilla's, and its lush caves sit *below* that line — so the lush-cave mineshaft can never appear. The
+other twelve types are fine.
+
+In `config/bettermineshafts-*.toml`, change:
+
+```
+"Minimum y-coordinate" = -200
+```
+
+Nothing else needs touching, and the twelve types that already worked carry on working.
+
+### YUNG's Better Caves — a much emptier underground
+
+Archean Rise already digs large cave systems. Better Caves adds its own on top, which roughly **triples**
+the open space underground. It works correctly, and it will not drain your rivers or lakes — but the
+world ends up very hollow. If that's not the game you want, leave it out.
+
+**Tested and working on an early version (0.1.0), not re-checked since:** Towns
 and Towers · Dungeons and Taverns · When Dungeons Arise · Repurposed Structures · ChoiceTheorem's
 Overhauled Village · Explorify · Villages & Pillages · Structory · Structory: Towers · Philip's Ruins ·
 AdoraBuild · Moog's Voyager Structures · Moog's End Structures · Better Archeology · Formations ·

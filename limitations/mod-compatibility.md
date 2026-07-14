@@ -21,6 +21,21 @@ no crash, they just weren't there.
 Terralith works too — but **install it as a mod, not as a datapack**. The datapack version replaces
 Archean Rise's world entirely.
 
+## The YUNG's mods work (0.3.17)
+
+All twelve of them, tested together: Better Dungeons, Strongholds, Mineshafts, Desert Temples, Jungle
+Temples, Ocean Monuments, Witch Huts, Bridges, Extras, Better Caves, Cave Biomes and the API. Their
+structures all build properly in Archean Rise's terrain.
+
+Two things to know:
+
+- **Better Mineshafts** only digs between y −55 and y 30. Archean Rise's lush caves sit deeper than that,
+  so you'd never find a lush-cave mineshaft. One line in `config/bettermineshafts-*.toml` fixes it:
+  `"Minimum y-coordinate" = -200`. The other twelve mineshaft types are fine either way.
+- **Better Caves** roughly **triples** the open space underground — Archean Rise already digs big caves,
+  and this adds more on top. It works, and it won't drain your rivers. Just know the world will be very
+  hollow.
+
 ## Two things that don't work
 
 - **Expanded Ecosphere** — the game won't start. It takes over the Overworld of *any* world type, so the
