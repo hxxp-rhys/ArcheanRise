@@ -36,6 +36,20 @@ Two things to know:
   and this adds more on top. It works, and it won't drain your rivers. Just know the world will be very
   hollow.
 
+## Dungeons and Taverns + Towns and Towers work (0.3.17)
+
+All ten Dungeons and Taverns mods and Towns and Towers, tested together. Every structure builds properly —
+including the Ancient City, the Stronghold and the Illager Hideout, which sit deep underground and are
+exactly the case that used to leave land floating in the sky. They don't.
+
+Two things that aren't ours to fix:
+
+- **Dungeons and Taverns' quest trader doesn't work.** The wandering-trader map and the quest-trader trade
+  never trigger. It's a broken advancement inside the mod, and it happens in an ordinary world too.
+- **Towns and Towers' "exclusive" villages need another biome mod** (Terralith, Biomes O' Plenty or
+  Regions Unexplored). Without one, they never appear. It also moves vanilla pillager outposts to plains
+  only, giving other biomes its own designs. Both are by design.
+
 ## Two things that don't work
 
 - **Expanded Ecosphere** — the game won't start. It takes over the Overworld of *any* world type, so the

@@ -55,6 +55,8 @@ compete with Archean Rise, and none of them are listed here.
 | **YUNG's Extras** | — | — | ✅ | |
 | **YUNG's Better Mineshafts** | — | — | ⚠️ | Works, but one of its thirteen mineshaft types needs a one-line setting change. See below. |
 | **YUNG's Better Caves** | — | — | ⚠️ | Works — but it makes the underground *very* hollow. See below. |
+| **Dungeons and Taverns** (+ all 9 of its add-ons) | — | — | ✅ | Includes the Ancient City, Stronghold, Nether Fortress, Pillager Outpost and Swamp Hut overhauls and the Desert Temple, Jungle Temple, Ocean Monument and Woodland Mansion replacements. One small note below. |
+| **Towns and Towers** | — | — | ✅ | One small note below. |
 | **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
@@ -80,8 +82,29 @@ Archean Rise already digs large cave systems. Better Caves adds its own on top, 
 the open space underground. It works correctly, and it will not drain your rivers or lakes — but the
 world ends up very hollow. If that's not the game you want, leave it out.
 
-**Tested and working on an early version (0.1.0), not re-checked since:** Towns
-and Towers · Dungeons and Taverns · When Dungeons Arise · Repurposed Structures · ChoiceTheorem's
+### Dungeons and Taverns — the deep structures are safe
+
+All ten Dungeons and Taverns mods were tested together on 0.3.17. The Ancient City, the Stronghold and
+the Illager Hideout sit deep underground, which is exactly the situation that used to leave a lump of
+land floating in the sky. **They don't.** Every one of them builds cleanly.
+
+Two things worth knowing, neither of them ours to fix:
+
+- Its **quest trader** doesn't work — the wandering-trader map and the quest-trader trade never trigger.
+  That's a bug inside Dungeons and Taverns (a broken advancement) and it happens in an ordinary world
+  too, with or without Archean Rise.
+- Its **Nether** structures are unaffected either way. Archean Rise only changes the Overworld.
+
+### Towns and Towers — two notes
+
+- It moves **vanilla pillager outposts to plains only** and gives every other biome its own outpost
+  design instead. That's how the mod is meant to work.
+- Its "**exclusive**" villages (Classic, Rustic, Iberian and so on) only appear in biomes from *other*
+  mods — Terralith, Biomes O' Plenty or Regions Unexplored. Without one of those installed you'll never
+  see them. Again, by design.
+
+**Tested and working on an early version (0.1.0), not re-checked since:**
+When Dungeons Arise · Repurposed Structures · ChoiceTheorem's
 Overhauled Village · Explorify · Villages & Pillages · Structory · Structory: Towers · Philip's Ruins ·
 AdoraBuild · Moog's Voyager Structures · Moog's End Structures · Better Archeology · Formations ·
 The Lost Castle · Explorations · Additional Structures · Luki's Grand Capitals.
