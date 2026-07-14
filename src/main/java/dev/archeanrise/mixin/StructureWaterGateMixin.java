@@ -1,6 +1,7 @@
 package dev.archeanrise.mixin;
 
 import dev.archeanrise.ArcheanRise;
+import dev.archeanrise.sitegrading.BuriedStructures;
 import dev.archeanrise.sitegrading.SiteGrading;
 import net.minecraft.core.Holder;
 import net.minecraft.core.QuartPos;
@@ -76,7 +77,23 @@ public abstract class StructureWaterGateMixin {
 		BoundingBox box = start.getBoundingBox();
 		// Surface structures only: a box entirely below sea level is underground (mineshaft/stronghold) or
 		// an intentional underwater build (ocean monument/shipwreck) — never a "floating on water" case.
+		// Cheap prefilter, kept for its own sake: it only ever WIDENS the skip set.
 		if (box.maxY() < SiteGrading.SEA_LEVEL) {
+			return;
+		}
+
+		// BURIAL GATE (v0.3.19) — the absolute test above is the SAME broken test that produced the
+		// create_ltab floating island, and it is just as meaningless here. In a world whose land reaches
+		// y 768, a ruin buried forty blocks under a y=231 mountain has box.maxY() = 199: it sails straight
+		// through "below sea level", the gate then judges it on the surface far overhead, and DELETES it.
+		//
+		// Depth is a distance below the LOCAL surface. Ask the one shared predicate — the same one
+		// ForeignInsetBeard and ForeignInsetGrade ask — instead of re-deriving a fourth copy of a test that
+		// was already wrong three times.
+		//
+		// This is a WORLD-CONTENT change: structures that were being silently deleted now generate.
+		if (BuriedStructures.isBuriedStart(start, chunkGenerator, randomState, heightAccessor,
+				registryAccess)) {
 			return;
 		}
 		int cx = (box.minX() + box.maxX()) / 2;

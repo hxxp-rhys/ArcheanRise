@@ -269,9 +269,24 @@ public class ArcheanRiseConfig {
 	 * far) is kept; only fully-enclosed small clumps at/above {@link #floatDespeckleMinY} are cleared.
 	 * Seed-pure (a pure function of the frozen post-carver terrain). See DECISIONS.md / limitations.
 	 */
-	public boolean floatDespeckleEnabled = false;
-	/** Max blocks a detached clump may have and still be removed as an artifact (bigger = kept). Clamped 1..256. */
-	public int floatDespeckleMaxBlocks = 16;
+	public boolean floatDespeckleEnabled = true;
+	/**
+	 * Max blocks a detached clump may have and still be removed as an artifact (bigger = kept). Clamped 1..8192.
+	 *
+	 * <p>Raised 16 → 2048 in v0.3.19. 16 was sized for the jaggedness specks this pass was written for, and it
+	 * is nowhere near what Archean Rise's arched mountains actually produce: measured on 2026-07-14 with ZERO
+	 * mods loaded, a **771-block** detached mass (bounding box 57 × 40 × 53) hanging in the sky. Both the old
+	 * cap and the old 1..256 clamp made it structurally impossible to remove — even at maximum. 2048 clears the
+	 * observed worst case ~2.6×.
+	 *
+	 * <p><b>[JUDGMENT] This trades away part of the original "never touch a large formation" promise.</b> That
+	 * rule existed to protect a *possible future* intentional sky-island feature, which does not exist. A
+	 * 771-block slab hanging over a mountain is a defect, not a feature, and preserving it to protect something
+	 * hypothetical is the wrong trade. If sky islands are ever added, they must be excluded explicitly (a marker
+	 * block or a structure-backed carve-out) rather than by being merely large — set this to 16 to restore the
+	 * old behaviour.
+	 */
+	public int floatDespeckleMaxBlocks = 2048;
 	/** Only despeckle at/above this Y (never touch deep rock; the reported floater is at y201). Clamped -64..512. */
 	public int floatDespeckleMinY = 63;
 
@@ -343,7 +358,7 @@ public class ArcheanRiseConfig {
 		}
 		regionFileCompression = rfc;
 		biomeBorderBlend = clamp("biomeBorderBlend", biomeBorderBlend, 0, 24);
-		floatDespeckleMaxBlocks = clamp("floatDespeckleMaxBlocks", floatDespeckleMaxBlocks, 1, 256);
+		floatDespeckleMaxBlocks = clamp("floatDespeckleMaxBlocks", floatDespeckleMaxBlocks, 1, 8192);
 		floatDespeckleMinY = clamp("floatDespeckleMinY", floatDespeckleMinY, -64, 512);
 		insetForeignGradeReach = clamp("insetForeignGradeReach", insetForeignGradeReach, 4, 48);
 		insetForeignOverhangMin = clamp("insetForeignOverhangMin", insetForeignOverhangMin, 1, 32);

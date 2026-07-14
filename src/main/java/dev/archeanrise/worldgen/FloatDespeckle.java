@@ -9,6 +9,7 @@ import net.minecraft.world.level.WorldGenLevel;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.LevelChunkSection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +37,17 @@ import java.util.List;
  */
 public final class FloatDespeckle {
 
-	/** Bounding-box half-extent (blocks) the flood may span before it is judged LARGE (kept). */
-	private static final int SEARCH_RADIUS = 24;
+	/**
+	 * Bounding-box half-extent (blocks) the flood may span before it is judged LARGE (kept).
+	 *
+	 * <p>Raised 24 → 48 in v0.3.19. The natural detached masses Archean Rise's arched mountains produce are
+	 * far bigger than the jaggedness specks this was originally sized for: the one measured on 2026-07-14
+	 * (with ZERO mods loaded) is **771 blocks with a 57 × 40 × 53 bounding box** — half-extents of ~28, so
+	 * the old radius rejected it before the block cap ever got a look in. 48 clears the observed worst case
+	 * with headroom, and the {@code maxBlocks} cap remains the tighter bound in practice, so this does not
+	 * make a grounded-mountain flood meaningfully more expensive (it bails on the block cap first).
+	 */
+	private static final int SEARCH_RADIUS = 48;
 
 	private FloatDespeckle() {}
 
@@ -80,7 +90,28 @@ public final class FloatDespeckle {
 	public static void run(WorldGenLevel level, ChunkAccess chunk) {
 		int maxBlocks = maxBlocks();
 		int minY = Math.max(minY(), level.getMinBuildHeight());
-		int top = level.getMaxBuildHeight() - 1;
+
+		// SCAN BOUND (v0.3.19) — stop at the chunk's highest non-empty section, not at the build ceiling.
+		//
+		// This used to walk every column from minY to getMaxBuildHeight()-1 = y 767. In an Archean Rise
+		// world the land tops out around y 300 and everything above it is empty sky, so ~450 of the 705
+		// y-levels per column were pure air: ~115,000 wasted getBlockState calls per chunk, every chunk.
+		// That cost is the reason this pass could not be afforded and shipped disabled. A floating island
+		// is solid, so it lives inside a non-empty section by definition — bounding the scan to the top
+		// non-empty section cannot miss one, and it is exact rather than heuristic (unlike trusting a
+		// heightmap that carvers may have mutated).
+		int top = level.getMinBuildHeight();
+		LevelChunkSection[] sections = chunk.getSections();
+		for (int i = sections.length - 1; i >= 0; i--) {
+			if (!sections[i].hasOnlyAir()) {
+				top = chunk.getSectionYFromSectionIndex(i) * 16 + 15;
+				break;
+			}
+		}
+		top = Math.min(top, level.getMaxBuildHeight() - 1);
+		if (top < minY) {
+			return; // nothing solid at or above minY in this chunk
+		}
 		int cx0 = chunk.getPos().getMinBlockX();
 		int cx1 = chunk.getPos().getMaxBlockX();
 		int cz0 = chunk.getPos().getMinBlockZ();
@@ -103,7 +134,7 @@ public final class FloatDespeckle {
 					if (openFaceCount(level, probe, x, y, z) < 4) {
 						continue; // part of a solid surface/mass, not a near-isolated blob
 					}
-					classify(level, x, y, z, maxBlocks, visited, removals, cx0, cx1, cz0, cz1);
+					classify(level, x, y, z, maxBlocks, visited, removals);
 				}
 			}
 		}
@@ -124,7 +155,7 @@ public final class FloatDespeckle {
 	 * kept. All visited blocks are recorded so nearby candidates in the same component are skipped.
 	 */
 	private static void classify(WorldGenLevel level, int sx, int sy, int sz, int maxBlocks,
-			LongOpenHashSet visited, List<BlockPos> removals, int cx0, int cx1, int cz0, int cz1) {
+			LongOpenHashSet visited, List<BlockPos> removals) {
 		LongArrayFIFOQueue queue = new LongArrayFIFOQueue();
 		List<BlockPos> component = new ArrayList<>();
 		long seed = BlockPos.asLong(sx, sy, sz);
@@ -143,13 +174,36 @@ public final class FloatDespeckle {
 				large = true; // grounded finger or large formation (future sky island) — keep, stop growing
 				break;
 			}
-			for (int dx = -1; dx <= 1; dx++) {
-				for (int dy = -1; dy <= 1; dy++) {
-					for (int dz = -1; dz <= 1; dz++) {
+			for (int dx = -1; dx <= 1 && !large; dx++) {
+				for (int dy = -1; dy <= 1 && !large; dy++) {
+					for (int dz = -1; dz <= 1 && !large; dz++) {
 						if (dx == 0 && dy == 0 && dz == 0) {
 							continue;
 						}
 						int nx = x + dx, ny = y + dy, nz = z + dz;
+
+						// REGION-EDGE GUARD (v0.3.19) — never judge a component we cannot fully SEE.
+						//
+						// isSolid() reports anything outside the readable features region as non-solid. That
+						// silently CLIPS a component at the region edge, so a mass that carries on into the
+						// next chunk — and is attached to the ground out there — looks closed, is judged a
+						// detached artifact, and is deleted.
+						//
+						// The original code was safe from this only by accident: at maxBlocks = 16 the flood
+						// could never reach the edge, and the class doc leaned on exactly that ("the maxBlocks
+						// cap keeps any large formation that reaches the region edge"). Raising the cap to 2048
+						// to catch real floating masses destroys that assumption — measured 2026-07-14: it tore
+						// the support out from under a hillside and left a NEW 229-block island above
+						// additionalstructures:bush_4, a site that was clean before.
+						//
+						// So: touching the edge means "unjudgeable", not "closed". Treat it as LARGE and KEEP.
+						// Removal stays sound at ANY cap — the pass can only ever delete a component it has
+						// seen in full.
+						if (!level.hasChunk(nx >> 4, nz >> 4)) {
+							large = true;
+							break;
+						}
+
 						long nk = BlockPos.asLong(nx, ny, nz);
 						if (visited.contains(nk)) {
 							continue;
@@ -161,14 +215,32 @@ public final class FloatDespeckle {
 					}
 				}
 			}
+			if (large) {
+				break;
+			}
 		}
 		if (large) {
-			return; // KEEP — sky-island-safe: anything past the cap/radius is preserved
+			return; // KEEP — anything past the cap/radius, or reaching the region edge, is preserved
 		}
+		// REMOVE THE WHOLE COMPONENT (v0.3.19) — not just this chunk's share of it.
+		//
+		// This used to add only the blocks inside the current chunk, on the reasoning that every chunk the
+		// clump touches would flood it, reach the same verdict, and clear its own share ("no tear"). That
+		// holds only while clumps are TINY. A chunk seeds a flood solely from blocks with >= 4 open faces:
+		// a 16-block blob is all surface, so every chunk holding a piece of it has a seed. A 771-block mass
+		// has a SOLID INTERIOR — a chunk holding only interior blocks has no qualifying seed, never floods
+		// it, and never clears its share. The clump is then half-removed and the remnant is left hanging.
+		//
+		// Measured 2026-07-14 at maxBlocks=2048: 972 blocks cleared near additionalstructures:bush_4 and a
+		// 229-block remnant left floating — a NEW island, at a site that was clean. The tear, not the cap,
+		// was the defect the raised cap exposed.
+		//
+		// Clearing the entire component in one pass removes the tear by construction. Whichever chunk gets
+		// there first takes the whole thing; the others simply find air and do nothing, so the outcome does
+		// not depend on chunk order. Writes stay inside the readable region — the edge guard above
+		// guarantees the component never left it.
 		for (BlockPos bp : component) {
-			if (bp.getX() >= cx0 && bp.getX() <= cx1 && bp.getZ() >= cz0 && bp.getZ() <= cz1) {
-				removals.add(bp.immutable());
-			}
+			removals.add(bp.immutable());
 		}
 	}
 }
