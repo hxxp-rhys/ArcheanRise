@@ -52,6 +52,13 @@ public final class ForeignInsetGrade {
 	/** Beyond the box roof the hill is natural again; must match ForeignInsetBeard.ROOF_TAPER. */
 	private static final int ROOF_TAPER = 8;
 	private static final int MAX_STRUCTURE_CHUNK_REACH = 8;
+	/**
+	 * Blocks of unbroken rock that must sit beneath the ramp before the cut is allowed (0.3.18 overhang
+	 * guard, {@link #unsupportedAtRamp}). Big enough that an arch slab (measured: 4 blocks) and an arch
+	 * stem (0) are caught; small enough that an honest hillside standing on a cave roof still reads as
+	 * ground and keeps its grade.
+	 */
+	private static final int SUPPORT_PROBE = 16;
 
 	private ForeignInsetGrade() {}
 
@@ -172,12 +179,53 @@ public final class ForeignInsetGrade {
 		if (rampTop >= naturalHill) {
 			return; // ramp already met natural terrain — leave the hill's bulk
 		}
+
+		// OVERHANG GUARD (0.3.18) — never cut into rock that is not resting on the ground.
+		//
+		// The cut removes everything above rampTop and leaves whatever is below it. That is only sound if
+		// what is left is standing on something. Archean Rise's mountains ARCH: a column can read
+		// solid / void / solid. When rampTop lands inside the upper mass, the cut shaves its top off and
+		// leaves a thin slab sitting on nothing but air — and in the next column along, the same cut takes
+		// out the stem the arch was standing on. The leftover slabs are a floating island.
+		//
+		// Measured (2026-07-14), a 5x5 bush on an arched shoulder:
+		//     column (5941,-3236)   before: solid 227..249            after: <gone>      (the stem)
+		//     column (5950,-3232)   before: solid 252..290            after: 252..255    (the slab)
+		// 187 severed attachments, 240 orphaned cells. Footprint area was NOT the discriminator — a 5x4
+		// bush was clean and a 25x27 sewage system was not. The terrain is.
+		//
+		// So: probe down from the ramp. If we meet air (or water) within SUPPORT_PROBE blocks, the ramp has
+		// landed in or under an arch and the rock here is load-bearing for something we cannot see from one
+		// column. Cut nothing. This is purely SUBTRACTIVE — it only ever declines to cut, so a column of
+		// honest ground-resting hillside behaves exactly as it did before, and no terrain that used to
+		// survive can now be removed.
+		if (unsupportedAtRamp(level, pos, x, z, rampTop)) {
+			return;
+		}
+		// CONTIGUITY GUARD (0.3.18) — cut only the run of rock standing ON the ramp, never across a void.
+		//
+		// This used to scan from the surface DOWN to rampTop, clearing every solid block on the way. In an
+		// arched mountain a column reads solid / void / solid, so that downward scan reached straight over
+		// the air gap and deleted the detached upper mass as well — a mass which carries on past the apron.
+		// Taking out only the slice of it that happened to fall inside our 24-block reach severed the rest.
+		//
+		// Measured (2026-07-14), a buttress column beside additionalstructures:sewage_system_1:
+		//     before: solid 204..253   [void]   269..282      <- two masses
+		//     after : solid 204..222                          <- the old cut took BOTH
+		// The ramp sat at y 222, thirty blocks below the upper mass it destroyed. 98 severed attachments;
+		// 774 cells left hanging.
+		//
+		// Walking UP from the ramp and stopping at the first air confines the cut to the one mass the ramp
+		// is actually shaping. Anything above a void is a separate body of rock whose extent this column
+		// cannot see, so we leave it alone. Purely SUBTRACTIVE: on an ordinary hillside — one unbroken run
+		// from the ramp to the surface — this removes exactly the blocks the old loop did.
 		int scanTop = level.getHeight(Heightmap.Types.WORLD_SURFACE_WG, x, z) - 1;
 		boolean cut = false;
-		for (int y = scanTop; y > rampTop; y--) {
-			if (clearSolid(level, pos, x, y, z)) {
-				cut = true;
+		for (int y = rampTop + 1; y <= scanTop; y++) {
+			if (!clearSolid(level, pos, x, y, z)) {
+				break; // first void above the ramp — everything higher is a separate mass
 			}
+			cut = true;
 		}
 		if (cut) {
 			resurface(level, pos, x, z, rampTop);
@@ -224,6 +272,37 @@ public final class ForeignInsetGrade {
 			}
 		}
 		return -1;
+	}
+
+	/**
+	 * True when the rock this column would be left standing on, after cutting down to {@code rampTop}, is
+	 * NOT resting on the ground — i.e. the ramp has landed inside, or underneath, an arch.
+	 *
+	 * <p>Probe straight down from {@code rampTop}. Air or water within {@link #SUPPORT_PROBE} blocks means
+	 * the slab we are about to leave behind is floating, or the mass we are about to cut is the stem holding
+	 * an arch up. Either way, one column cannot see what else that rock is carrying, so we decline to cut.
+	 *
+	 * <p>The probe is BOUNDED on purpose. An honest hillside sitting on a cave roof is solid for tens of
+	 * blocks below the ramp and reads as supported, so the grade keeps working over caves; only genuinely
+	 * thin, air-backed rock — the arch slabs and stems that produce the floating islands — is spared.
+	 *
+	 * <p>Seed-pure in the only sense that matters here: it reads the post-carver block world, which is
+	 * exactly what the cut itself reads ({@code scanTop} via WORLD_SURFACE_WG, {@code clearSolid}), and it
+	 * is evaluated per column, so every chunk that touches this column reaches the same verdict.
+	 */
+	private static boolean unsupportedAtRamp(WorldGenLevel level, BlockPos.MutableBlockPos pos,
+			int x, int z, int rampTop) {
+		int floor = level.getMinBuildHeight();
+		for (int n = 0, y = rampTop; n <= SUPPORT_PROBE; n++, y--) {
+			if (y < floor) {
+				return false; // walked out the bottom of the world on solid rock — supported
+			}
+			BlockState s = level.getBlockState(pos.set(x, y, z));
+			if (s.isAir() || !s.getFluidState().isEmpty()) {
+				return true; // a void under the ramp — arch slab or arch stem; do not cut
+			}
+		}
+		return false; // SUPPORT_PROBE blocks of unbroken rock beneath the ramp — this is ground
 	}
 
 	/** Set a solid block to air (never touch air/fluid); returns true if a solid was removed. */

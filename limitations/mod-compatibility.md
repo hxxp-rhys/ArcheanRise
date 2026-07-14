@@ -77,12 +77,13 @@ Unnamed Sea · Additional Structures · Explorations.
 
 Two things to know:
 
-- **Formations Overworld crashes the game.** It needs **SuperMartijn642's Core Lib** and doesn't tell you so.
-  Install that and it'll start. Nothing to do with Archean Rise.
-- **Additional Structures and Explorations can leave a lump of land floating**, occasionally, on steep
-  mountainsides. **That one is our bug, not theirs** — we reshape the ground around other mods' buildings, and
-  around a few of their tiny decorations (a bush, a log pile, a well) we overdo it. A fix is coming; there's a
-  config workaround in [COMPATIBILITY.md](../docs/COMPATIBILITY.md) meanwhile.
+- **Formations Overworld won't run on a server.** It needs SuperMartijn642's Core Lib and doesn't tell you so
+  — and even once you install that, it still crashes, because it tries to open a screen-editing window that
+  doesn't exist on a server. That's Formations' own bug: it dies before Archean Rise is ever involved. It may
+  be fine in singleplayer.
+- **Additional Structures and Explorations left a lump of land floating** on steep mountainsides in 0.3.17.
+  **That was our bug, not theirs, and it's fixed in 0.3.18.** Just update — nothing to configure. Land you've
+  already explored keeps what it has; new land is built correctly.
 
 ## Two things that don't work
 
