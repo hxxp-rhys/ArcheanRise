@@ -76,15 +76,24 @@ compete with Archean Rise, and none of them are listed here.
 | **Immersive Structures** | ✅ | ✅ | ✅ | |
 | **Thun's Structures** | ✅ | ✅ | ✅ | |
 | **Unnamed Desert** · **Unnamed Sea** | ✅ | ✅ | ✅ | |
-| **Moog's Voyager · Bountiful · Soaring · Temples Reimagined · Mineshafts Reimagined · Missing Villages** | — | — | ⚠️ | Work, with two catches — see below. **They also need the right Moog's Structure Lib** (see below). |
+| **Moog's Voyager** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Bountiful** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Soaring** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Temples Reimagined** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Mineshafts Reimagined** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Missing Villages** | — | — | ⚠️ | Work, with two catches — see below. |
 | **Moog's Paths** | — | — | ✅ | |
-| **Create: Structures Arise · Structures Overhaul · Wells · Sky Village · New Beginnings** | — | — | ✅ | Need Create installed. |
+| **Create: Structures Arise** | — | — | ✅ | Need Create installed. |
+| **Create: Structures Overhaul** | — | — | ✅ | Need Create installed. |
+| **Create: Wells** | — | — | ✅ | Need Create installed. |
+| **Create: Sky Village** | — | — | ✅ | Need Create installed. |
+| **Create: New Beginnings** | — | — | ✅ | Need Create installed. |
 | **Create: Hangars** | — | — | ✅ | Needs Create: Aeronautics for working hangars (buildings generate regardless). |
 | **Dynamic Village** | — | — | ✅ | Needs Create. |
 | **Additional Structures** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18, and 0.3.19 also cleans up natural floating rock.** |
 | **Explorations** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18.** |
 | **Formations Overworld** | ❌ | ❌ | ❌ | **Cannot run on a server** — with or without Archean Rise. It needs **SuperMartijn642's Core Lib**; even with that installed it still crashes, because Formations loads a screen-editing GUI that doesn't exist on a server. Formations' own bug — the crash happens before Archean Rise is ever involved. It may be fine in singleplayer. |
-| **Create: Let The Adventure Begin** | — | — | — | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
+| **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed obviously. |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
 Archean Rise terrain, and none of them leave floating lumps of land behind.
@@ -178,11 +187,9 @@ That's 17 entries to change. So `villages_overworld` goes from spacing 50 / sepa
 ### Moog's structure mods — install the right library, and two catches
 
 All six Moog's structure mods (Voyager, Bountiful, Soaring, Temples Reimagined, Mineshafts Reimagined,
-Missing Villages) share one small library, **Moog's Structure Lib**. **Install the version built for
-Minecraft 1.21.1.** A version built for a different Minecraft will stop your game starting at all — even
-if the Moog's mods themselves are switched off.
+Missing Villages) share one small library, **Moog's Structure Lib**.
 
-With the right library in place they work well. Two things to know:
+Two things to know:
 
 - **Their structures come out more often than Archean Rise intends** — like Repurposed Structures above,
   they place with their own system that Archean Rise leaves alone. Lower the spacing in the Moog's config
