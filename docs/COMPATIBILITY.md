@@ -76,12 +76,12 @@ compete with Archean Rise, and none of them are listed here.
 | **Immersive Structures** | ✅ | ✅ | ✅ | |
 | **Thun's Structures** | ✅ | ✅ | ✅ | |
 | **Unnamed Desert** · **Unnamed Sea** | ✅ | ✅ | ✅ | |
-| **Moog's Voyager** | — | — | ⚠️ | Work, with two catches — see below. |
-| **Moog's Bountiful** | — | — | ⚠️ | Work, with two catches — see below. |
-| **Moog's Soaring** | — | — | ⚠️ | Work, with two catches — see below. |
-| **Moog's Temples Reimagined** | — | — | ⚠️ | Work, with two catches — see below. |
-| **Moog's Mineshafts Reimagined** | — | — | ⚠️ | Work, with two catches — see below. |
-| **Moog's Missing Villages** | — | — | ⚠️ | Work, with two catches — see below. |
+| **Moog's Voyager** | — | — | ⚠️ | Works, with two catches — see below. |
+| **Moog's Bountiful** | — | — | ⚠️ | Works, with two catches — see below. |
+| **Moog's Soaring** | — | — | ⚠️ | Works, with two catches — see below. |
+| **Moog's Temples Reimagined** | — | — | ⚠️ | Works, with two catches — see below. |
+| **Moog's Mineshafts Reimagined** | — | — | ⚠️ | Works, with two catches — see below. |
+| **Moog's Missing Villages** | — | — | ⚠️ | Works, with two catches — see below. |
 | **Moog's Paths** | — | — | ✅ | |
 | **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed obviously. |
 | **Create: Structures Arise** | — | — | ✅ | Need Create installed. |
