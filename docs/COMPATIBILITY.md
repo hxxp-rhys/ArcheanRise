@@ -19,18 +19,21 @@ compete with Archean Rise, and none of them are listed here.
 
 | Mod | 0.3.17 | 0.3.18 | 0.3.19 | Notes |
 |---|:---:|:---:|:---:|---|
-| **Biomes O' Plenty** | — | — | — | Works from 0.3.16. Before that its biomes never appeared at all. |
-| **Oh The Biomes We've Gone** | — | — | — | Needs CorgiLib + GeckoLib. |
-| **Nature's Spirit** | — | — | — | |
-| **YUNG's Cave Biomes** | — | — | — | **Needs YUNG's API** — it will not load without it. Both its cave biomes appear; Lost Caves only turns up under hot, dry land, so look in deserts. |
-| **Underground Worlds** | — | — | — | |
-| **Oh The Trees You'll Grow** | — | — | — | Changes how saplings grow; doesn't touch terrain. |
+| **Biomes O' Plenty** | — | — | ✅ | Works from 0.3.16. Before that its biomes never appeared at all. |
+| **Oh The Biomes We've Gone** | — | — | ✅ | Needs CorgiLib + GeckoLib. Its biomes appear on Archean Rise terrain. |
+| **Nature's Spirit** | — | — | ✅ | Needs TerraBlender. Its biomes appear. |
+| **YUNG's Cave Biomes** | — | — | ✅ | **Needs YUNG's API** — it will not load without it. Both its cave biomes appear; Lost Caves only turns up under hot, dry land, so look in deserts. |
+| **Underground Worlds** | — | — | ✅ | |
+| **Atmospheric** | — | — | ✅ | Needs Blueprint. Its biomes appear. |
+| **Environmental** | — | — | ✅ | Needs Blueprint. Its biomes appear. |
+| **Oh The Trees You'll Grow** | — | — | ✅ | Changes how saplings grow; doesn't touch terrain. |
+| **Vanilla Backport** | — | — | ✅ | Adds backported features; doesn't disturb Archean Rise's terrain. |
 | **Terralith** | — | — | — | **Install the MOD, not the datapack.** The mod works — its biomes appear on Archean Rise's terrain. The standalone *datapack* version would replace Archean Rise's world entirely. |
 | **Geophilic** | — | — | — | Worked on an older version. |
 | **Regions Unexplored** | — | — | — | Needs re-testing. It used to switch Archean Rise off (see below); that's fixed, but the pairing hasn't been re-checked. |
 | **Tectonic** | — | — | — | Its terrain has no effect (Archean Rise makes the land). But it moves the snow line about 128 blocks and lowers ocean monuments, in any world. |
 | **BetterEnd / BetterNether / Incendium / Nullscape** | — | — | — | Fine. Archean Rise only changes the Overworld — the Nether and End are untouched. |
-| **Expanded Ecosphere** | — | — | — | **The game won't start.** It replaces the Overworld of *any* world type, so the two can never both work. Archean Rise refuses to launch beside it on purpose. |
+| **Expanded Ecosphere** | ❌ | — | — | **The game won't start.** It replaces the Overworld of *any* world type, so the two can never both work. Archean Rise refuses to launch beside it on purpose. |
 | **terrain-diffusion-mc** | — | — | — | Not recommended — it downloads ~2.5 GB of models on first launch and misbehaves on custom world types. |
 
 > **⚠️ If you played 0.3.13–0.3.15 with Terralith, Tectonic, Regions Unexplored or CTOV — please update.**
@@ -44,38 +47,43 @@ compete with Archean Rise, and none of them are listed here.
 
 | Mod | 0.3.17 | 0.3.18 | 0.3.19 | Notes |
 |---|:---:|:---:|:---:|---|
-| **YUNG's API** | — | — | — | Required by every YUNG's mod below. |
-| **YUNG's Better Dungeons** | — | — | — | |
-| **YUNG's Better Strongholds** | — | — | — | |
-| **YUNG's Better Desert Temples** | — | — | — | |
-| **YUNG's Better Jungle Temples** | — | — | — | |
-| **YUNG's Better Ocean Monuments** | — | — | — | |
-| **YUNG's Better Witch Huts** | — | — | — | |
-| **YUNG's Bridges** | — | — | — | |
-| **YUNG's Extras** | — | — | — | |
-| **YUNG's Better Mineshafts** | — | — | — | Works, but one of its thirteen mineshaft types needs a one-line setting change. See below. |
-| **YUNG's Better Caves** | — | — | — | Works — but it makes the underground *very* hollow. See below. |
-| **Dungeons and Taverns** (+ all 9 of its add-ons) | — | — | — | Includes the Ancient City, Stronghold, Nether Fortress, Pillager Outpost and Swamp Hut overhauls and the Desert Temple, Jungle Temple, Ocean Monument and Woodland Mansion replacements. One small note below. |
-| **Towns and Towers** | — | — | — | One small note below. |
-| **When Dungeons Arise** | — | — | — | Its "find Thornborn Towers / fishing hut" advancements don't work — a bug in the mod itself, and it happens in an ordinary world too. |
-| **When Dungeons Arise: Seven Seas** | — | — | — | |
-| **Explorify** | — | — | — | |
-| **Structory** | — | — | — | |
-| **Structory: Towers** | — | — | — | |
-| **Philip's Ruins** | — | — | — | Its deep structures (Lost Soul City, Ancient Dungeon) build correctly. |
-| **Villages & Pillages** | — | — | — | **Needs YUNG's API** — without it the game won't start. |
-| **Repurposed Structures** | — | — | — | Works, but its structures are more common than Archean Rise intends. See below. |
-| **ChoiceTheorem's Overhauled Village** | — | — | — | **Not tested.** It needs Lithostitched, which wasn't installed, so it crashed on launch before it could be tested. Install Lithostitched (which does work with Archean Rise) and it should be testable. |
-| **Luki's Ancient Cities · Crazy Chambers · Strongholds · Woodland Mansions · Grand Capitals** | ✅ | ✅ | — | All five. The Ancient City and Trial Chambers are very deep and build correctly. |
-| **AdoraBuild** | ✅ | ✅ | ✅ | |
-| **Better Archeology** | ✅ | ✅ | — | |
-| **The Lost Castle** | ✅ | ✅ | — | |
+| **YUNG's API** | — | — | ✅ | Required by every YUNG's mod below. |
+| **YUNG's Better Dungeons** | — | — | ✅ | |
+| **YUNG's Better Strongholds** | — | — | ✅ | |
+| **YUNG's Better Desert Temples** | — | — | ✅ | |
+| **YUNG's Better Jungle Temples** | — | — | ✅ | |
+| **YUNG's Better Ocean Monuments** | — | — | ✅ | |
+| **YUNG's Better Witch Huts** | — | — | ✅ | |
+| **YUNG's Bridges** | — | — | ✅ | |
+| **YUNG's Extras** | — | — | ✅ | |
+| **YUNG's Better Mineshafts** | — | — | ⚠️ | Works, but one of its thirteen mineshaft types needs a one-line setting change. See below. |
+| **YUNG's Better Caves** | — | — | ⚠️ | Works — but it makes the underground *very* hollow. See below. |
+| **Dungeons and Taverns** (+ all 9 of its add-ons) | — | — | ✅ | Includes the Ancient City, Stronghold, Nether Fortress, Pillager Outpost and Swamp Hut overhauls and the Desert Temple, Jungle Temple, Ocean Monument and Woodland Mansion replacements. One small note below. |
+| **Towns and Towers** | — | — | ✅ | One small note below. |
+| **When Dungeons Arise** | — | — | ✅ | Its "find Thornborn Towers / fishing hut" advancements don't work — a bug in the mod itself, and it happens in an ordinary world too. |
+| **When Dungeons Arise: Seven Seas** | — | — | ✅ | |
+| **Explorify** | — | — | ✅ | |
+| **Structory** | — | — | ✅ | |
+| **Structory: Towers** | — | — | ✅ | |
+| **Philip's Ruins** | — | — | ✅ | Its deep structures (Lost Soul City, Ancient Dungeon) build correctly. |
+| **Villages & Pillages** | — | — | ✅ | **Needs YUNG's API** — without it the game won't start. |
+| **Repurposed Structures** | — | — | ⚠️ | Works, but its structures are more common than Archean Rise intends. See below. |
+| **ChoiceTheorem's Overhauled Village** | — | — | ✅ | **Needs Lithostitched** (which works with Archean Rise). With it installed, its villages generate cleanly. |
+| **Luki's Ancient Cities · Crazy Chambers · Strongholds · Woodland Mansions · Grand Capitals** | ✅ | ✅ | ✅ | All five. The Ancient City and Trial Chambers are very deep and build correctly. |
+| **AdoraBuild** | ✅ | ✅ | ✅ | Built for a slightly newer Minecraft, but loads and works fine. |
+| **Better Archeology** | ✅ | ✅ | ✅ | |
+| **The Lost Castle** | ✅ | ✅ | ✅ | |
 | **Immersive Structures** | ✅ | ✅ | ✅ | |
-| **Thun's Structures** | ✅ | ✅ | — | |
-| **Unnamed Desert** · **Unnamed Sea** | ✅ | ✅ | — | |
+| **Thun's Structures** | ✅ | ✅ | ✅ | |
+| **Unnamed Desert** · **Unnamed Sea** | ✅ | ✅ | ✅ | |
+| **Moog's Voyager · Bountiful · Soaring · Temples Reimagined · Mineshafts Reimagined · Missing Villages** | — | — | ⚠️ | Work, with two catches — see below. **They also need the right Moog's Structure Lib** (see below). |
+| **Moog's Paths** | — | — | ✅ | |
+| **Create: Structures Arise · Structures Overhaul · Wells · Sky Village · New Beginnings** | — | — | ✅ | Need Create installed. |
+| **Create: Hangars** | — | — | ✅ | Needs Create: Aeronautics for working hangars (buildings generate regardless). |
+| **Dynamic Village** | — | — | ✅ | Needs Create. |
 | **Additional Structures** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18, and 0.3.19 also cleans up natural floating rock.** |
 | **Explorations** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18.** |
-| **Formations Overworld** | ❌ | ❌ | — | **Cannot run on a server** — with or without Archean Rise. It needs **SuperMartijn642's Core Lib** (and doesn't say so); once that's installed it still crashes, because Formations loads a screen-editing GUI that doesn't exist on a server. Formations' own bug — the crash happens before Archean Rise is ever involved. It may be fine in singleplayer. |
+| **Formations Overworld** | ❌ | ❌ | ❌ | **Cannot run on a server** — with or without Archean Rise. It needs **SuperMartijn642's Core Lib**; even with that installed it still crashes, because Formations loads a screen-editing GUI that doesn't exist on a server. Formations' own bug — the crash happens before Archean Rise is ever involved. It may be fine in singleplayer. |
 | **Create: Let The Adventure Begin** | — | — | — | NeoForge only, and Create must be installed. (On Fabric it crashes at boot — Create has no Fabric build for 1.21.1. That's the mod's own problem, not ours.) |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
@@ -167,16 +175,24 @@ If you'd rather it matched, RS lets you fix this yourself, in
 
 That's 17 entries to change. So `villages_overworld` goes from spacing 50 / separation 25 to **150 / 75**.
 
-**Tested and working on an early version (0.1.0), not re-checked since:**
-AdoraBuild · Moog's Voyager Structures · Moog's End Structures · Better Archeology · Formations ·
-The Lost Castle · Explorations · Additional Structures · Luki's Grand Capitals.
+### Moog's structure mods — install the right library, and two catches
 
-They all passed back then, and nothing suggests they've broken — but the terrain has changed a lot since,
-so treat them as *probably fine* rather than guaranteed. If one misbehaves, please report it.
+All six Moog's structure mods (Voyager, Bountiful, Soaring, Temples Reimagined, Mineshafts Reimagined,
+Missing Villages) share one small library, **Moog's Structure Lib**. **Install the version built for
+Minecraft 1.21.1.** A version built for a different Minecraft will stop your game starting at all — even
+if the Moog's mods themselves are switched off.
 
-**Create-based structure mods** (Create: Structures, Pillagers Arise, Easy Structures, IDAS, and the rest):
-on Fabric they can't run at all, because Create has no Fabric build for 1.21.1. On NeoForge they should
-work, but only *Let The Adventure Begin* has actually been tested.
+With the right library in place they work well. Two things to know:
+
+- **Their structures come out more often than Archean Rise intends** — like Repurposed Structures above,
+  they place with their own system that Archean Rise leaves alone. Lower the spacing in the Moog's config
+  if you want them rarer.
+- **One Voyager decoration (a small oak pond) can leave a small lump of land floating** on steep ground.
+  That one's on our side, and a fix is on the way.
+
+**Create-based structure mods:** on Fabric they can't run at all, because Create has no Fabric build for
+1.21.1. On NeoForge, *Let The Adventure Begin* and the Create: Structures family (Structures Arise,
+Structures Overhaul, Wells, Sky Village, New Beginnings, Hangars) all work with Create installed.
 
 ---
 
