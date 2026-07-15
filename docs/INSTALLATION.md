@@ -124,7 +124,9 @@ These are fine-tuning knobs and a still-in-development terrain feature. The defa
 | `insetForeignOverhangMin` | `3` | How far a building has to jut out over a drop before support is filled in beneath it. |
 | `insetForeignTunnelBase` | `2` | How much a tunnel mouth is widened where a building bores into a hill. |
 | `siteGradingCutFill` | `false` | An experimental, more thorough way of levelling the ground for villages. Still in development — off by default. |
-| `siteGradingCut` · `siteGradingApronRampMax` · `siteGradingForeignHaloExtra` | `true` · `32` · `2` | Fine-tuning for the experimental levelling above; only matters when `siteGradingCutFill` is on. |
+| `siteGradingCut` | `true`  | Fine-tuning for the experimental levelling above; only matters when `siteGradingCutFill` is on. |
+| `siteGradingApronRampMax` | `32 | Fine-tuning for the experimental levelling above; only matters when `siteGradingCutFill` is on. |
+| `siteGradingForeignHaloExtra` | `2` | Fine-tuning for the experimental levelling above; only matters when `siteGradingCutFill` is on. |
 
 ## 5. Updating
 
