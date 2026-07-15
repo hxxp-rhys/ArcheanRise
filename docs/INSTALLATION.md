@@ -42,42 +42,89 @@ generator. The log names it. Remove it and make a new world.
 
 ## 4. Settings
 
-`config/archean_rise.json` — created on first launch, and refreshed on every launch (your values are
-kept; new settings appear automatically).
+Everything lives in `config/archean_rise.json`. It's made on first launch and tidied up on every launch —
+your changes are kept, and new settings from updates appear on their own.
 
-**Nothing here changes an existing world's terrain.** Terrain is baked in at creation. These settings
-affect how *new* land is generated and how the server behaves.
+**Nothing here changes a world you've already made.** The shape of the land is fixed when the world is
+created; these settings only affect *new* land and how the server behaves. Most of them are already set
+to sensible defaults — the ones you're most likely to touch are at the top of each list.
 
-### Performance
+### Making the world generate faster
+
+The world is big, so building it takes longer than usual. These help.
 
 | Setting | Default | What it does |
 |---|---|---|
-| `autoPregenEnabled` | `false` | Generate a chunk of world around spawn at startup, so players aren't waiting on it. Set `autoPregenRadiusBlocks` to how far. |
-| `playerAheadEnabled` | `false` | Quietly generate land just beyond each player's view, so exploring feels smooth. |
-| `pregenPauseWhenPlayersOnline` | `true` | Pause pregeneration while anyone is playing. Leave this on. |
-| `regionFileCompression` | `"default"` | Set to `"lz4"` if the server stutters on "Saving world". Bigger files, much faster saves. |
+| `autoPregenEnabled` | `false` | Build a patch of world around spawn the moment the server starts, so the first people to join aren't stuck waiting for terrain. |
+| `autoPregenRadiusBlocks` | `32` | How far out that startup patch reaches, in blocks. Turn `autoPregenEnabled` on first. |
+| `playerAheadEnabled` | `false` | Quietly build land just beyond what each player can see, so exploring stays smooth instead of stuttering at the edges. |
+| `playerAheadChunks` | `8` | How far ahead of each player to build. |
+| `pregenPauseWhenPlayersOnline` | `true` | Pause background world-building while anyone is playing, so it never steals performance from live players. Best left on. |
+| `regionFileCompression` | `"default"` | If the game freezes for a moment on "Saving world", set this to `"lz4"` — saves get much faster, for slightly larger files. Mostly a singleplayer setting. |
+| `pregenMaxInFlight` | `64` | How many pieces of world the pre-builder works on at once. Higher is faster but uses more memory while it runs. |
+| `pregenSaveIntervalChunks` | `1024` | How often pre-built land is written to disk. This is what stops one giant "Saving world" freeze at the end. Fine as-is. |
+| `pregenMaxRadiusChunks` | `1024` | The largest area the manual pregen command will accept, as a safety cap. |
+| `pregenLogIntervalSeconds` | `10` | How often build progress is printed to the server log. |
 
-You can also pregenerate by hand: `/archeanrise pregen start <radiusInChunks>` (and `stop`, `status`).
-
-**This world is about 2.7× the volume of a vanilla one, so generating it costs more.** Installing
-[C2ME](https://modrinth.com/mod/c2me-fabric) roughly doubles generation speed and is strongly
-recommended for servers.
+You can also build the world by hand at any time: `/archeanrise pregen start <radius-in-chunks>` (and
+`stop`, `status`). **Installing [C2ME](https://modrinth.com/mod/c2me-fabric) roughly doubles
+generation speed** and is strongly recommended for servers.
 
 ### Villages and structures
 
-| Setting | Default | What it does |
-|---|---|---|
-| `siteGradingVeto` | `true` | Skip village sites that are too steep to build a walkable village on. This is **why villages are rarer**. Turn it off for more villages, some of them broken. |
-| `scaleStructureSpacing` | `true` | Spread structures ~3× further apart, so they don't cluster like suburbs in a world this big. |
-| `insetForeignStructures` | `true` | Reshape the ground around other mods' buildings so they sit into the hill rather than hanging off it. |
-| `gateForeignInSnow` / `gateForeignInWater` | `true` | Skip other mods' buildings that would land on snow or deep water, where they look wrong. |
-
-### Looks
+Archean Rise tries to make villages sit properly on its steeper land instead of half-buried or clinging
+to a cliff.
 
 | Setting | Default | What it does |
 |---|---|---|
-| `biomeBorderBlend` | `0` | Makes biome borders wander and interlock instead of running straight. Try `8`–`16`. It cannot fade biomes into each other — nothing in Minecraft can. |
-| `riverFallsEnabled` | `true` | Waterfalls where rivers drop. |
+| `siteGradingVeto` | `true` | Skip village spots too steep to build a walkable village on. This is **why villages are a bit rarer**. Turn it off for more villages, some of them broken. |
+| `siteGradingVetoMaxRelief` | `32` | How much slope a village spot can have before it's skipped. Raise it for more villages on hillier ground. |
+| `siteGradingWaterVetoDepth` | `32` | Skip village spots that hang out over water deeper than this. |
+| `scaleStructureSpacing` | `true` | Spread all structures about 3× further apart, so they don't cluster like suburbs in a world this size. |
+| `siteGradingEnabled` | `true` | The master switch for all of the village-fitting above. Off = plain vanilla placement. |
+| `siteGradingCandidateSearch` | `true` | Let a village shuffle a short distance to a nicer nearby spot. |
+| `siteGradingGradePad` | `true` | Reshape the ground around village buildings so they sit flush with the land. |
+| `siteGradingFoundationFill` | `true` | Fill in small gaps left underneath village buildings. |
+| `siteGradingExtraStructures` | `[]` | A list where you can name other mods' structures (e.g. `"somemod:fort"`, or a whole mod as `"somemod"`) to give them the same village-fitting treatment. |
+
+### Other mods' structures
+
+How Archean Rise blends buildings from other mods into its terrain.
+
+| Setting | Default | What it does |
+|---|---|---|
+| `insetForeignStructures` | `true` | Cut other mods' buildings neatly into hillsides so they don't hang off a slope. |
+| `insetForeignGrade` | `true` | Tidy the ground around those buildings — slope the cut face, fill under an overhang, and open a natural-looking mouth where a building tunnels into a hill. |
+| `insetForeignBurialGate` | `true` | Leave structures that are *meant* to be underground (crypts, bunkers, cave ruins) alone, instead of digging the hill off them. Best left on. |
+| `insetForeignBurialMargin` | `8` | How deep a structure has to be buried before it counts as "underground" and is left alone. |
+| `gateForeignInSnow` | `true` | Skip other mods' buildings that would land on snow, where a generic building tends to look out of place. |
+| `gateForeignInWater` | `true` | Skip other mods' buildings that would end up floating on open water. |
+| `gateForeignInWaterDepth` | `8` | How deep the water has to be before a spot counts as "on water". The default keeps beaches and shallow swamps. |
+| `insetForeignForceSurfaceStructures` | `[]` | Force-mark a structure (or a whole mod) as a *surface* build if Archean Rise guesses wrong. Normally empty. |
+| `insetForeignForceBuriedStructures` | `[]` | Force-mark a structure (or a whole mod) as *underground* if Archean Rise guesses wrong. Normally empty. |
+
+### The look of the world
+
+| Setting | Default | What it does |
+|---|---|---|
+| `biomeBorderBlend` | `0` | Makes biome borders wander and interlock instead of running in straight lines. Try `8`–`16`. It can't fade one biome's colours into another — nothing in Minecraft can. |
+| `riverFallsEnabled` | `true` | Adds waterfalls where rivers drop down a step. |
+| `riverPoolFillEnabled` | `true` | Keeps river pools topped up with water where they'd otherwise sit half-empty. |
+| `floatDespeckleEnabled` | `true` | Cleans up stray lumps of rock left floating in the sky. Turn it off only if you *want* floating rock (or you're adding your own sky islands). |
+| `floatDespeckleMaxBlocks` | `2048` | The biggest floating lump to sweep away. Anything larger is treated as real terrain and kept. |
+| `floatDespeckleMinY` | `63` | Only clean up floating rock above this height (roughly sea level and up). |
+
+### Advanced — leave these alone unless you like to tinker
+
+These are fine-tuning knobs and a still-in-development terrain feature. The defaults are the tested ones.
+
+| Setting | Default | What it does |
+|---|---|---|
+| `insetForeignGradeReach` | `24` | How far out from a building the ground-tidying reaches. |
+| `insetForeignOverhangMin` | `3` | How far a building has to jut out over a drop before support is filled in beneath it. |
+| `insetForeignTunnelBase` | `2` | How much a tunnel mouth is widened where a building bores into a hill. |
+| `siteGradingCutFill` | `false` | An experimental, more thorough way of levelling the ground for villages. Still in development — off by default. |
+| `siteGradingCut` · `siteGradingApronRampMax` · `siteGradingForeignHaloExtra` | `true` · `32` · `2` | Fine-tuning for the experimental levelling above; only matters when `siteGradingCutFill` is on. |
 
 ## 5. Updating
 
