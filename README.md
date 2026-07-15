@@ -1,3 +1,5 @@
+![banner](https://cdn.modrinth.com/data/cached_images/05983e23efc84a1ec7520dd716f06fe638f80cae.jpeg)
+
 # Archean Rise
 
 A terrain-generation mod for **Minecraft 1.21.1** that makes the world much bigger and much more
@@ -18,6 +20,8 @@ dramatic. Fabric and NeoForge.
 Biome mods work too: **Biomes O' Plenty**, **Oh The Biomes We've Gone**, **Nature's Spirit**, **YUNG's
 Cave Biomes**, **Underground Worlds** and **Terralith** all generate their biomes on Archean Rise's
 terrain.
+
+![A scenic mountain view.](https://cdn.modrinth.com/data/cached_images/c8060ee857ae7a0bc63b22b47d79a72ce6ec677f.jpeg)
 
 ## Install
 
