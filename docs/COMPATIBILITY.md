@@ -83,6 +83,7 @@ compete with Archean Rise, and none of them are listed here.
 | **Moog's Mineshafts Reimagined** | — | — | ⚠️ | Work, with two catches — see below. |
 | **Moog's Missing Villages** | — | — | ⚠️ | Work, with two catches — see below. |
 | **Moog's Paths** | — | — | ✅ | |
+| **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed obviously. |
 | **Create: Structures Arise** | — | — | ✅ | Need Create installed. |
 | **Create: Structures Overhaul** | — | — | ✅ | Need Create installed. |
 | **Create: Wells** | — | — | ✅ | Need Create installed. |
@@ -93,7 +94,6 @@ compete with Archean Rise, and none of them are listed here.
 | **Additional Structures** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18, and 0.3.19 also cleans up natural floating rock.** |
 | **Explorations** | ✅ | ✅ | ✅ | On 0.3.17 a few of its small decorations could leave a lump of land floating; **fixed in 0.3.18.** |
 | **Formations Overworld** | ❌ | ❌ | ❌ | **Cannot run on a server** — with or without Archean Rise. It needs **SuperMartijn642's Core Lib**; even with that installed it still crashes, because Formations loads a screen-editing GUI that doesn't exist on a server. Formations' own bug — the crash happens before Archean Rise is ever involved. It may be fine in singleplayer. |
-| **Create: Let The Adventure Begin** | ✅ | ✅ | ✅ | NeoForge only, and Create must be installed obviously. |
 
 All twelve YUNG's mods were tested together on 0.3.17. Every structure they add builds properly in
 Archean Rise terrain, and none of them leave floating lumps of land behind.
