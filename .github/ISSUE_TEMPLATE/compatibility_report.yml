@@ -1,0 +1,104 @@
+name: Mod compatibility report
+description: Another mod doesn't work right alongside Archean Rise.
+title: "[Compat]: "
+labels: ["compatibility"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this if a specific mod misbehaves next to Archean Rise — its biomes or structures never show up,
+        the game won't start with both installed, or something looks wrong where its content generates.
+
+        **Please check the [compatibility list](https://github.com/hxxp-rhys/ArcheanRise/blob/main/docs/COMPATIBILITY.md)
+        first** — a lot of mod combinations are already documented there, including the ones that need a small
+        config change.
+  - type: input
+    id: mod-name
+    attributes:
+      label: Which mod?
+      placeholder: "e.g. YUNG's Better Mineshafts"
+    validations:
+      required: true
+  - type: input
+    id: mod-version
+    attributes:
+      label: That mod's version
+    validations:
+      required: true
+  - type: input
+    id: ar-version
+    attributes:
+      label: Archean Rise version
+      placeholder: "e.g. 0.3.20"
+    validations:
+      required: true
+  - type: dropdown
+    id: loader
+    attributes:
+      label: Mod loader
+      options:
+        - Fabric
+        - NeoForge
+    validations:
+      required: true
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: What goes wrong?
+      options:
+        - "The game won't start with both installed"
+        - "The mod's biomes never appear"
+        - "The mod's structures never appear"
+        - "There's floating land or broken terrain near the mod's content"
+        - "The mod's structures are in the wrong place, or too common / too rare"
+        - "Something else (describe below)"
+    validations:
+      required: true
+  - type: dropdown
+    id: vanilla-check
+    attributes:
+      label: Does the same mod work correctly in a normal (non-Archean Rise) world?
+      description: >
+        This is the single most useful thing you can tell us. Make a plain default world with the same mods and
+        check. If it also breaks there, the problem is that mod's own, not Archean Rise. If it only breaks with
+        Archean Rise, that points squarely at us.
+      options:
+        - "Yes — it's fine in a normal world, only breaks with Archean Rise"
+        - "No — it's broken in a normal world too"
+        - "I haven't checked"
+    validations:
+      required: true
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: What you saw, where, and anything you already tried.
+    validations:
+      required: true
+  - type: input
+    id: seed
+    attributes:
+      label: World seed
+      description: Helpful for anything to do with where biomes or structures generate.
+  - type: input
+    id: coords
+    attributes:
+      label: Coordinates (X Y Z), if relevant
+  - type: textarea
+    id: full-mods
+    attributes:
+      label: Your full world-generation mod list
+      description: >
+        Every biome, structure and terrain mod you have installed, plus any libraries they depend on. A missing
+        library is a common reason a mod "doesn't work".
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log and/or crash report
+      description: >
+        Paste your latest.log, or a link to it on https://mclo.gs. This is essential if the game won't start.
+      render: text
+    validations:
+      required: true

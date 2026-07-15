@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Setup help — "it's not doing anything"
+    url: https://github.com/hxxp-rhys/ArcheanRise/blob/main/docs/INSTALLATION.md
+    about: >
+      Most of these turn out to be the world-type step. Archean Rise needs a brand-new world with its own
+      world type selected (on a server, level-type=archean_rise:archean_rise before the first launch). Check
+      the installation page first.
+  - name: Is my mod combination already known?
+    url: https://github.com/hxxp-rhys/ArcheanRise/blob/main/docs/COMPATIBILITY.md
+    about: >
+      The compatibility list covers a lot of biome and structure mods, including the few that need a small
+      config change. Worth a look before filing a compatibility report.

@@ -1,0 +1,146 @@
+name: Bug report
+description: Something is broken, crashing, or the world looks wrong.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report this. Archean Rise is in alpha, so reports genuinely help.
+
+        The three things that matter most are your **version**, your **loader**, and your **log** — please
+        don't skip those. The more you can fill in, the faster this gets sorted.
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you post
+      options:
+        - label: I searched the existing issues and this hasn't already been reported.
+          required: true
+        - label: I've read the note below and filled in my version and loader.
+          required: true
+  - type: input
+    id: ar-version
+    attributes:
+      label: Archean Rise version
+      description: The exact version — this matters, because behaviour changes between versions.
+      placeholder: "e.g. 0.3.20"
+    validations:
+      required: true
+  - type: dropdown
+    id: loader
+    attributes:
+      label: Mod loader
+      options:
+        - Fabric
+        - NeoForge
+    validations:
+      required: true
+  - type: input
+    id: mc-version
+    attributes:
+      label: Minecraft version
+      description: Archean Rise is built for 1.21.1 only. If you're on anything else, that's likely the problem.
+      value: "1.21.1"
+    validations:
+      required: true
+  - type: dropdown
+    id: environment
+    attributes:
+      label: Where did it happen?
+      options:
+        - Singleplayer
+        - Dedicated server
+        - Both
+    validations:
+      required: true
+  - type: dropdown
+    id: new-world
+    attributes:
+      label: Was this a brand-new world made with the Archean Rise world type?
+      description: >
+        Archean Rise can't be added to an existing world, and on a server the world type
+        (level-type=archean_rise:archean_rise) must be set before the very first launch. This is by far the
+        most common cause of "it's not doing anything".
+      options:
+        - "Yes — a new world, with the Archean Rise world type selected"
+        - "No — I added it to a world I'd already been playing"
+        - "Not sure"
+    validations:
+      required: true
+  - type: dropdown
+    id: active-line
+    attributes:
+      label: What does the startup log say about Archean Rise?
+      description: >
+        Near the top of the log there's a line from "Archean Rise" that tells us whether the mod is actually
+        running. Have a quick look for it.
+      options:
+        - '"Archean Rise static world active ..." — it IS running'
+        - '"Overworld is not an Archean Rise preset" — the world type wasn''t selected'
+        - '"ARCHEAN RISE IS DISABLED IN THIS WORLD" — another mod took over the world'
+        - "I couldn't find a line like that"
+        - "Not sure / haven't checked"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the problem. If it's a crash, say so and paste the crash report further down.
+      placeholder: "e.g. There's a chunk of land floating in the sky next to a village."
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect instead?
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: If you can, list what you did, so we can see it for ourselves.
+      placeholder: |
+        1. Create a new world with ...
+        2. Travel to ...
+        3. ...
+  - type: input
+    id: seed
+    attributes:
+      label: World seed
+      description: For anything to do with terrain or structures, the seed lets us load the exact same world you saw.
+      placeholder: "e.g. -3982725712080378954"
+  - type: input
+    id: coords
+    attributes:
+      label: Coordinates (X Y Z)
+      description: Where in the world it happened — vital for terrain and structure problems.
+      placeholder: "e.g. -2756 200 3546"
+  - type: textarea
+    id: other-mods
+    attributes:
+      label: Other world-generation mods installed
+      description: >
+        List any biome, structure or terrain mods you have (and the libraries they need). Archean Rise only
+        clashes with mods that also build the world, so this is what we look at first. You don't need to list
+        performance mods, shaders, maps, machinery, and the like.
+  - type: textarea
+    id: logs
+    attributes:
+      label: Log and/or crash report
+      description: >
+        This is the most important part. Paste your latest.log (and the crash report, if it crashed). Anything
+        long is much easier to read on a paste site — https://mclo.gs is ideal — so a link there is very welcome.
+      render: text
+    validations:
+      required: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: Screenshots
+      description: If it's something you can see, a picture helps a lot. Drag images straight into this box.
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else?
+      description: Anything you think might be relevant that the boxes above didn't cover.
