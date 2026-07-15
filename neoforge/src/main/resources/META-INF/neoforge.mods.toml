@@ -6,6 +6,7 @@ license = "All-Rights-Reserved"
 modId = "archean_rise"
 version = "${version}"
 displayName = "Archean Rise"
+logoFile = "icon.png"
 authors = "Archean Rise Team"
 description = '''
 A much taller, more dramatic world for Minecraft 1.21.1: terrain from Y -256 to 768, mountains to 708, continent-scale geography and rivers. Works with Biomes O' Plenty, Terralith and other biome mods.'''
